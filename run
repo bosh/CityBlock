@@ -1,2 +1,2 @@
 #! /bin/bash
-appletviewer bin/game.html
+appletviewer game.html
