@@ -1,0 +1,9 @@
+Structure:
+
+/lib -> actual code
+/bin -> build to here
+compile -> compiles to /bin
+run -> runs the applet using the code from /bin
+
+
+
