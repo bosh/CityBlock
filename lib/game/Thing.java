@@ -1,12 +1,11 @@
 package game;
 
 // GENERIC THING
-
 import java.awt.*;
 
 public class Thing
 {
-	public boolean movable = false;
+	protected boolean movable = false; //dont change in this class.
    public void setPlatform(Platform platform) {
       this.platform = platform;
    }
@@ -15,9 +14,14 @@ public class Thing
       updateShape();
       g.setColor(color);
       g.fillPolygon(polygon);
-      g.setColor(Color.black);
+      g.setColor(lineColor);
       g.drawPolygon(polygon);
    }
+	
+	public int distanceTo(Thing other){
+		//returns the distance between the edges of the two objects.
+		return 999;
+	}
 
    public boolean contains(int x, int y) {
       updateShape();
@@ -53,6 +57,9 @@ public class Thing
    public void setColor(Color color) {
       this.color = color;
    }
+   public void setLineColor(Color color){
+	this.lineColor = color;
+	}
 
    public double getX() { return x; }
    public double getY() { return y; }
@@ -93,13 +100,14 @@ public class Thing
    }
 
    Color color = Color.black;
-   double X[] = new double[100];
-   double Y[] = new double[100];
+   Color lineColor = Color.black;
+   protected double X[] = new double[100];
+   protected double Y[] = new double[100];
    int n = 0;
 
    int IX[] = new int[100];
    int IY[] = new int[100];
-   double x = 0, y = 0, mx = 0, my = 0;
+   protected double x = 0, y = 0, mx = 0, my = 0;
    double moveX = 0, moveY = 0;
 
    Polygon polygon = null;

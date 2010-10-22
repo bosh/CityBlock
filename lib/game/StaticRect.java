@@ -2,9 +2,9 @@ package game;
 
 // A RECTANGLE SHAPED THING
 
-public class RectThing extends Thing
+public class StaticRect extends Thing
 {
-   public RectThing(double x, double y, double width, double height) {
+   public StaticRect(double x, double y, double width, double height) {
       this.x = x + width / 2;
       this.y = y + height / 2;
       X[0] = x;
