@@ -2,7 +2,7 @@ package cityblock;
 import cityblock.*;
 import game.*;
 
-public class Level{
+public class Level {
 	public Shape[] shapes;
 	public int targetArea;
 	public Goal[] goals;
@@ -27,6 +27,7 @@ public class Level{
 	
 	public Level(){
 	}
+
 	public void render(){
 		//displays tutorial until the user has finished with it
 		//snaps to grid and all that stuff.
@@ -35,7 +36,7 @@ public class Level{
 		//this moves a shape up against its nearest neighbour. Also need to implement snap to within a certain radius
 		for(int i = 0; i < shapes.length; i++){
 			Shape s = shapes[i];
-			if(!s.inStagingArea() && !s.held){ //inStagingArea needs implementing (by alex :-) )
+			if(!s.isInStagingArea() && !s.held){ //inStagingArea needs implementing (by alex :-) )
 				Thing closestTo = findClosest(s);
 				s.moveTowards(closestTo, 20); //needs implementing (by alex :-) )
 			}
@@ -58,7 +59,7 @@ public class Level{
 		Thing closestTo = this.buildingBase;
 		for(int j = 0; j < shapes.length; j++){
 			Shape test = shapes[j];
-			if(s != test && !test.inStagingArea() && test.distanceTo(s) < closestTo.distanceTo(s)) closestTo = test;
+			if(s != test && !test.isInStagingArea() && test.distanceTo(s) < closestTo.distanceTo(s)) closestTo = test;
 		}
 		return closestTo;
 	}

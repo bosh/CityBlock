@@ -3,14 +3,40 @@ package game;
 // GENERIC THING
 import java.awt.*;
 
-public class Thing
-{
+public class Thing {
    public boolean held = false;
    protected boolean movable = false; //dont change in this class.
+   Color color = Color.black;
+   Color lineColor = Color.black;
+   protected double X[] = new double[100];
+   protected double Y[] = new double[100];
+   int n = 0;
+
+   int IX[] = new int[100];
+   int IY[] = new int[100];
+   protected double x = 0, y = 0, mx = 0, my = 0;
+   double moveX = 0, moveY = 0;
+
+   Polygon polygon = null;
+   boolean needToUpdateShape = false;
+   Platform platform;
+      
    public void setPlatform(Platform platform) {
       this.platform = platform;
    }
+   
+   public Platform getPlatform() {
+      return platform;
+   }
 
+   public boolean isInStagingArea(){
+      return platform.stagingArea.contains(this);
+   }
+
+   public boolean isInPlayArea(){
+      return platform.playArea.contains(this);
+   }
+   
    public void update(Graphics g) {
       updateShape();
       g.setColor(color);
@@ -135,19 +161,4 @@ public class Thing
       }
    }
 
-   Color color = Color.black;
-   Color lineColor = Color.black;
-   protected double X[] = new double[100];
-   protected double Y[] = new double[100];
-   int n = 0;
-
-   int IX[] = new int[100];
-   int IY[] = new int[100];
-   protected double x = 0, y = 0, mx = 0, my = 0;
-   double moveX = 0, moveY = 0;
-
-   Polygon polygon = null;
-   boolean needToUpdateShape = false;
-   Platform platform;
 }
-

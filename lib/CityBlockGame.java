@@ -1,12 +1,10 @@
 import game.*;
 import java.awt.*;
 import cityblock.*;
-public class CityBlockGame extends Platform{
+public class CityBlockGame extends Platform {
 	Level _currentLevel;
 	boolean _showMenu;
 	LevelController _controller;
-	public StaticRect stagingArea;
-	public StaticRect playArea;
 	
 	public void setup(){
 		//_controller = new LevelController();
@@ -54,5 +52,4 @@ public class CityBlockGame extends Platform{
 		return result;
 	}
 
-	
 }

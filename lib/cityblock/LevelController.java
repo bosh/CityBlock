@@ -1,8 +1,7 @@
 package cityblock;
 import game.*;
 
-public class LevelController{
-	
+public class LevelController {
 	//private, dont make public!!
 	LevelController.LevelSpec[] _levels;
 	int _top;
@@ -45,6 +44,5 @@ public class LevelController{
 		
 		return result;
 	}
-	
 	
 }

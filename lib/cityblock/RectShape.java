@@ -2,7 +2,7 @@ package cityblock;
 import java.awt.*;
 import game.*;
 
-public class RectShape extends cityblock.Shape{
+public class RectShape extends cityblock.Shape {
 	
 	public RectShape(int w, int h){
 		super(w, h);

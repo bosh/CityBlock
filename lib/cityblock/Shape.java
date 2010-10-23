@@ -3,7 +3,7 @@ package cityblock;
 import game.*;
 import java.awt.*;
 
-public class Shape extends Thing{
+public class Shape extends Thing {
 	int width;
 	int height;
 	
@@ -22,14 +22,9 @@ public class Shape extends Thing{
 	public void renderOverlay(Graphics g){
 		
 	}
-	public boolean inStagingArea(){
-		
-		return false;
-	}
-	
+
 	public void moveTowards(game.Thing other, int movementRate){
 		//this should move closer to other at a rate of min(this.distanceTo(other), movementRate)
 	}
-	
-	
+
 }
