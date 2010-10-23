@@ -5,6 +5,7 @@ import java.awt.*;
 
 public class Thing
 {
+	public boolean held = false;
 	protected boolean movable = false; //dont change in this class.
    public void setPlatform(Platform platform) {
       this.platform = platform;
@@ -31,6 +32,7 @@ public class Thing
    public boolean mouseDown(int x, int y) {
       mx = x;
       my = y;
+		this.held = true;
       return false;
    }
 
@@ -43,6 +45,7 @@ public class Thing
    }
 
    public boolean mouseUp(int x, int y) {
+		this.held = false;
       return false;
    }
 

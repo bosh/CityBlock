@@ -11,6 +11,4 @@ public class SquareShape extends cityblock.RectShape{
 		this.setLineColor(Color.red);
 	}
 	
-	
-	
 }

@@ -32,12 +32,12 @@ public class Level{
 		//snaps to grid and all that stuff.
 		//hard coding platform location and staging area location.
 		
-		//this finds the nearest neighbour
+		//this moves a shape up against its nearest neighbour. Also need to implement snap to within a certain radius
 		for(int i = 0; i < shapes.length; i++){
 			Shape s = shapes[i];
-			if(!s.inStagingArea()){
+			if(!s.inStagingArea() && !s.held){ //inStagingArea needs implementing (by alex :-) )
 				Thing closestTo = findClosest(s);
-				s.moveTowards(closestTo, 20);
+				s.moveTowards(closestTo, 20); //needs implementing (by alex :-) )
 			}
 		}
 	}
