@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class Thing
 {
-	public boolean held = false;
-	protected boolean movable = false; //dont change in this class.
+   public boolean held = false;
+   protected boolean movable = false; //dont change in this class.
    public void setPlatform(Platform platform) {
       this.platform = platform;
    }
@@ -18,11 +18,11 @@ public class Thing
       g.setColor(lineColor);
       g.drawPolygon(polygon);
    }
-	
-	public int distanceTo(Thing other){
-		//returns the distance between the edges of the two objects.
-		return 999;
-	}
+
+   public int distanceTo(Thing other){ //TODO: Line segment checking! Yay!
+      //returns the distance between the edges of the two objects.
+      return 999;
+   }
 
    public boolean contains(int x, int y) {
       updateShape();
@@ -32,11 +32,11 @@ public class Thing
    public boolean mouseDown(int x, int y) {
       mx = x;
       my = y;
-		this.held = true;
+      this.held = true;
       return false;
    }
 
-   public boolean mouseDrag(int x, int y) {
+   public boolean mouseDrag(int x, int y) { //TODO: Include collision detection
       setX(this.x + x - mx);
       setY(this.y + y - my);
       mx = x;
@@ -44,8 +44,8 @@ public class Thing
       return false;
    }
 
-   public boolean mouseUp(int x, int y) {
-		this.held = false;
+   public boolean mouseUp(int x, int y) { //TODO: May need to expand functionality
+      this.held = false;
       return false;
    }
 
@@ -61,8 +61,8 @@ public class Thing
       this.color = color;
    }
    public void setLineColor(Color color){
-	this.lineColor = color;
-	}
+     this.lineColor = color;
+   }
 
    public double getX() { return x; }
    public double getY() { return y; }
@@ -96,9 +96,9 @@ public class Thing
             IX[i] = (int)X[i];
             IY[i] = (int)Y[i];
          }
-	 moveX = moveY = 0;
-	 polygon = new Polygon(IX, IY, n);
-	 needToUpdateShape = false;
+         moveX = moveY = 0;
+         polygon = new Polygon(IX, IY, n);
+         needToUpdateShape = false;
       }
    }
 

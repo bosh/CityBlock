@@ -23,6 +23,7 @@ public class Shape extends Thing{
 		
 	}
 	public boolean inStagingArea(){
+		
 		return false;
 	}
 	
