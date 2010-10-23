@@ -38,8 +38,10 @@ public class CityBlockGame extends Platform{
 
 	private Level generateFakeLevel(){
 		Level result = new Level();
-		result.shapes = new cityblock.Shape[1];
+		result.shapes = new cityblock.Shape[3];
 		result.shapes[0] = new RectShape(30, 20);
+		result.shapes[1] = new TriangleShape(50, 70);
+		result.shapes[2] = new SquareShape(100);
 		result.targetArea = 6;
 		
 		

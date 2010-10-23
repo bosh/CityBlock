@@ -9,7 +9,7 @@ public class LevelController{
 	
 	public class LevelSpec{
 		public int maxShapes;
-		public int maxSolutions;
+		public boolean[] desiredShapes; //0 is suqare, 1 is rectangle, 2 is triangle
 		//more stuff here
 	}
 	
