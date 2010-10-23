@@ -19,14 +19,47 @@ public class Thing
       g.drawPolygon(polygon);
    }
 
-   public int distanceTo(Thing other){ //TODO: Line segment checking! Yay!
-      //returns the distance between the edges of the two objects.
-      return 999;
+   public int distanceTo(Thing other){ //Assumes that there will always be parallel lines between things
+      int minimumDistance = 999;
+      LineSegment[] segments = this.getLineSegments();
+      LineSegment[] otherSegments = other.getLineSegments();
+      for(int i = 0; i < segments.length; i++) {
+         for(int j = 0; j < otherSegments.length; j++) {
+            int distance = segments[i].distanceTo(otherSegments[j]);
+            if (distance < minimumDistance) {
+               minimumDistance = distance;
+            }
+         }
+      }
+      return minimumDistance;
+   }
+
+   public LineSegment[] getLineSegments() {
+      LineSegment[] segments = new LineSegment[n];
+      for(int i = 0; i < n-1; i++){
+         double[] point1 = new double[] {X[i],Y[i]};
+         double[] point2 = new double[] {X[i+1],Y[i+1]};
+         segments[i] = new LineSegment(point1, point2);
+      }
+      segments[n-1] = new LineSegment(new double[]{X[n-1],Y[n-1]}, new double[] {X[0],Y[0]}); //The wrap around case
+      return segments;
    }
 
    public boolean contains(int x, int y) {
       updateShape();
       return polygon.contains(x, y);
+   }
+
+   public boolean contains(Thing contained) {
+      updateShape();
+      for(int i = 0; i < n; i++) {
+         if (!polygon.contains(X[i], Y[i])) return false;
+      }
+      return true;
+   }
+
+   public boolean isContainedBy(Thing container) {
+      return container.contains(this);
    }
 
    public boolean mouseDown(int x, int y) {
