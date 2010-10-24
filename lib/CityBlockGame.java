@@ -29,6 +29,7 @@ public class CityBlockGame extends Platform {
 		_currentLevel = generateFakeLevel();
 		_currentLevel.start(this);
 	}
+	
 	public void update(){
 		_currentLevel.render();
 		
@@ -36,7 +37,7 @@ public class CityBlockGame extends Platform {
 		
 	}
 
-	public void overlay(Graphics g) {   
+	public void overlay(Graphics g) {
 		_currentLevel.renderOverlay(g);
 	}
 

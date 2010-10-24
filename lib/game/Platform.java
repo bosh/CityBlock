@@ -109,7 +109,7 @@ public class Platform extends BufferedApplet {
 
    // HANDLE COLLISION BETWEEN TWO THINGS
    public boolean colliding(Thing one, Thing two) {
-      return CollisionDetector.isCollision(one.X, one.Y, one.n, two.X, two.Y, two.n);
+      return ((one != two) && CollisionDetector.isCollision(one.X, one.Y, one.n, two.X, two.Y, two.n));
    }
 
    // RETURN THE WIDTH, IN PIXELS, OF A TEXT STRING

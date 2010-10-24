@@ -10,6 +10,7 @@ public class Shape extends Thing {
 	
 	//we should not be using ACTUAL width and height for the numbers we display cus they'll be far too high.
 	public Shape(int w, int h){
+		System.out.println("foo");
 		this.width = w;
 		this.height = h;
 		this.movable = true;
@@ -22,23 +23,37 @@ public class Shape extends Thing {
 	public Level getLevel() {
 		return this.level;
 	}
-	
-   public Thing[] findClosest(){
-      Thing[] currentClosest = new Thing[] {null, this.getLevel().buildingBase}; //null because it should not snap horizontally by default
-      Shape[] shapes = level.shapes;
-      for(int i = 0; i < shapes.length; i++){
-         Shape other = shapes[i];
-         if(this != other && !other.isInStagingArea() && this.isInPlayArea()) {
-            double[] distance = this.distanceTo(other);
-            for(int xy = 0; xy < 2; xy++){
-               if (distance[xy] < currentClosest[xy].distanceTo(this)[xy]) {
-                  currentClosest[xy] = other;
-               }
-            }
-         }
-      }
-      return currentClosest;
-   }
+
+	public boolean mouseDrag(int x, int y) {
+		boolean[] canMoveXY = new boolean[] {true, true};
+		for(int i = 0; i < level.shapes.length; i++){
+			System.out.println(i + " " + !this.isInStagingArea() + " " + level.shapes[i].isInPlayArea() + " " + getPlatform().colliding(this, level.shapes[i]));
+			if (!this.isInStagingArea() && level.shapes[i].isInPlayArea() && getPlatform().colliding(this, level.shapes[i])) {
+				canMoveXY[0] = false;
+				canMoveXY[1] = false;
+			}
+		}
+		if (canMoveXY[0]){ setX(this.x + x - mx); mx = x;} //Yes, yagni for future smarter detection
+		if (canMoveXY[1]){ setY(this.y + y - my); my = y;}
+		return false;
+	}
+
+	public Thing[] findClosest(){
+		Thing[] currentClosest = new Thing[] {null, this.getLevel().buildingBase}; //null because it should not snap horizontally by default
+		Shape[] shapes = level.shapes;
+		for(int i = 0; i < shapes.length; i++){
+			Shape other = shapes[i];
+			if(this != other && !other.isInStagingArea() && this.isInPlayArea()) {
+				double[] distance = this.distanceTo(other);
+				for(int xy = 0; xy < 2; xy++){
+					if (distance[xy] < currentClosest[xy].distanceTo(this)[xy]) {
+						currentClosest[xy] = other;
+					}
+				}
+			}
+		}
+		return currentClosest;
+	}
 
 	public void setup(int x, int y){
 		//override me!

@@ -12,7 +12,6 @@ public class Level {
 	public StaticRect buildingBase;
 	
 	public void start(Platform p){
-		
 		buildingBase = new StaticRect(p.getWidth()/3 - 150, p.getHeight() - 30, 300, 60 );
 		buildingBase.setColor(java.awt.Color.gray);
 		p.addThing(buildingBase);
