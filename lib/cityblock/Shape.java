@@ -1,5 +1,5 @@
 package cityblock;
-
+import java.util.*;
 import game.*;
 import java.awt.*;
 
@@ -7,6 +7,12 @@ public class Shape extends Thing {
 	int width;
 	int height;
 	Level level;
+	public static int maxDimension = 8;
+	public static int dimMultiplier = 20;
+	
+	public int getArea(){return this.getGameHeight()*this.getGameWidth();}
+	public int getGameHeight(){return height / dimMultiplier;}
+	public int getGameWidth(){return width / dimMultiplier;}
 	
 	//we should not be using ACTUAL width and height for the numbers we display cus they'll be far too high.
 	public Shape(int w, int h){

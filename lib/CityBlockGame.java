@@ -26,7 +26,17 @@ public class CityBlockGame extends Platform {
 		//ths is setting up the first level, but hacked at the moment for testing
 	
 		//_currentLevel = _controller.getLevel(1);
-		_currentLevel = generateFakeLevel();
+		LevelSpec spec = new LevelSpec();
+		spec.numShapes = 10;
+		spec.desiredShapes[0] = true;
+		spec.desiredShapes[1] = true;
+		spec.desiredShapes[2] = true;
+		
+		LevelSpec[] specs = new LevelSpec[1];
+		specs[0] = spec;
+		LevelController l = new LevelController(specs);
+		_currentLevel = l.getLevel(0);
+		
 		_currentLevel.start(this);
 	}
 	
