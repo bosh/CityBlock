@@ -21,11 +21,14 @@ public class Level {
 			Shape s = shapes[i];
 			s.setup(p.getWidth() - p.getWidth()/3 + 10, 10 + 30*i);
 			p.addThing(shapes[i]);
-			
 		}
 	}
 	
-	public Level(){
+	public Level(Shape[] shapes){
+		this.shapes = shapes;
+		for(int i = 0; i < shapes.length; i++) {
+			shapes[i].setLevel(this);
+		}
 	}
 
 	public void render(){
@@ -36,9 +39,10 @@ public class Level {
 		//this moves a shape up against its nearest neighbour. Also need to implement snap to within a certain radius
 		for(int i = 0; i < shapes.length; i++){
 			Shape s = shapes[i];
-			if(!s.isInStagingArea() && !s.held){ //inStagingArea needs implementing (by alex :-) )
-				Thing closestTo = findClosest(s);
-				s.moveTowards(closestTo, 20); //needs implementing (by alex :-) )
+			if(!s.isInStagingArea() && !s.held){
+				Thing[] closestTo = s.findClosest();
+				s.moveTowards(closestTo[0], 20); //needs implementing (by alex :-) )
+				s.moveTowards(closestTo[1], 20); //needs implementing (by alex :-) )
 			}
 		}
 	}
@@ -52,16 +56,5 @@ public class Level {
 	public int getCurrentArea(){return 0;}
 	public int getElapsedTime(){return 0;}
 	public boolean submit(){return false;}
-	
-	
-	private Thing findClosest(Shape other){
-		cityblock.Shape s = other;
-		Thing closestTo = this.buildingBase;
-		for(int j = 0; j < shapes.length; j++){
-			Shape test = shapes[j];
-			if(s != test && !test.isInStagingArea() && test.distanceTo(s) < closestTo.distanceTo(s)) closestTo = test;
-		}
-		return closestTo;
-	}
 	
 }

@@ -36,16 +36,16 @@ public class CityBlockGame extends Platform {
 		
 	}
 
-   public void overlay(Graphics g) {   
+	public void overlay(Graphics g) {   
 		_currentLevel.renderOverlay(g);
-   }
+	}
 
 	private Level generateFakeLevel(){
-		Level result = new Level();
-		result.shapes = new cityblock.Shape[3];
-		result.shapes[0] = new RectShape(30, 20);
-		result.shapes[1] = new TriangleShape(50, 70);
-		result.shapes[2] = new SquareShape(100);
+		cityblock.Shape[] shapes = new cityblock.Shape[3];
+		shapes[0] = new RectShape(30, 20);
+		shapes[1] = new TriangleShape(50, 70);
+		shapes[2] = new SquareShape(100);
+		Level result = new Level(shapes);
 		result.targetArea = 6;
 		
 		

@@ -45,15 +45,17 @@ public class Thing {
       g.drawPolygon(polygon);
    }
 
-   public int distanceTo(Thing other){ //Assumes that there will always be parallel lines between things
-      int minimumDistance = 999;
+   public double[] distanceTo(Thing other){ //Assumes that there will always be parallel lines between things
+      double[] minimumDistance = new double[] {999, 990};
       LineSegment[] segments = this.getLineSegments();
       LineSegment[] otherSegments = other.getLineSegments();
       for(int i = 0; i < segments.length; i++) {
          for(int j = 0; j < otherSegments.length; j++) {
-            int distance = segments[i].distanceTo(otherSegments[j]);
-            if (distance < minimumDistance) {
-               minimumDistance = distance;
+            double[] distance = segments[i].distanceTo(otherSegments[j]);
+            for(int xy = 0; xy < 2; xy++) { //as in [0] is x, [1] is y. 
+               if (distance[xy] < minimumDistance[xy]) {
+                  minimumDistance[i] = distance[i];
+               }
             }
          }
       }

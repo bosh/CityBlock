@@ -25,7 +25,9 @@ public class LevelController {
 	}
 	
 	public Level generate(LevelController.LevelSpec spec){
-		Level result = new Level();
+		int shapecount = 0; //TODO: Mathew, feel free to change anything in here, you just need to pass a shapes array
+		Shape[] shapes = new Shape[shapecount]; //Is the finalized list of shapes
+		Level result = new Level(shapes);
 		//flow:
 		/*
 			> generate a random number of each shape (at least one for all shapes specified)
