@@ -28,8 +28,8 @@ public class CityBlockGame extends Platform {
 		//_currentLevel = _controller.getLevel(1);
 		LevelSpec spec = new LevelSpec();
 		spec.numShapes = 4;
-		spec.desiredShapes[0] = true;
-		spec.desiredShapes[1] = true;
+		spec.desiredShapes[0] = false;
+		spec.desiredShapes[1] = false;
 		spec.desiredShapes[2] = true;
 		
 		LevelSpec[] specs = new LevelSpec[1];
@@ -41,7 +41,7 @@ public class CityBlockGame extends Platform {
 	}
 	
 	public void update(){
-		_currentLevel.render();
+		_currentLevel.update();
 		
 		
 		

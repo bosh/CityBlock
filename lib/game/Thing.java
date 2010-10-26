@@ -81,6 +81,31 @@ public class Thing {
       return segments;
    }
 
+	public LineSegment getLeftEdge(){
+		LineSegment[] segments = getLineSegments();
+		LineSegment result;
+		for(int i = 0; i < segments.length; i++){
+			LineSegment seg = segments[i];
+			if(seg.isVerticle()){
+				if(result == null) result = seg;
+				else if(seg.x1 < result.x1) result = seg;
+			}
+		}
+		return result;
+	}
+	public LineSegment getBottomEdge(){
+		LineSegment[] segments = getLineSegments();
+		LineSegment result;
+		for(int i = 0; i < segments.length; i++){
+			LineSegment seg = segments[i];
+			if(seg.Horizontal()){
+				if(result == null) result = seg;
+				else if(seg.y1 > result.y1) result = seg;
+			}
+		}
+		return result;
+	}
+
    public boolean contains(int x, int y) {
       updateShape();
       return polygon.contains(x, y);

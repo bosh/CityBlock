@@ -7,6 +7,7 @@ public class Level {
 	public double targetArea;
 	public Goal[] goals;
 	public int id;
+	public double lastTime = 0.0;
 	public String description;
 	public Tutorial tutorial;
 	public StaticRect buildingBase;
@@ -30,19 +31,10 @@ public class Level {
 		}
 	}
 
-	public void render(){
-		//displays tutorial until the user has finished with it
-		//snaps to grid and all that stuff.
-		//hard coding platform location and staging area location.
-		
-		//this moves a shape up against its nearest neighbour. Also need to implement snap to within a certain radius
-		for(int i = 0; i < shapes.length; i++){
-			Shape s = shapes[i];
-			if(!s.isInStagingArea() && !s.held){
-				Thing[] closestTo = s.findClosest();
-				s.moveTowards(closestTo[0], 20); //needs implementing (by alex :-) )
-				s.moveTowards(closestTo[1], 20); //needs implementing (by alex :-) )
-			}
+	public void update(){
+		if(lastTime !=getCurrentArea()){
+		System.out.println("current area :" + getCurrentArea() + " target: " + targetArea);
+		lastTime = getCurrentArea();
 		}
 	}
 	public void renderOverlay(java.awt.Graphics g){
@@ -61,7 +53,14 @@ public class Level {
 	
 	public int startTime;
 	public int stackedBlocks(){return 0;}
-	public int getCurrentArea(){return 0;}
+	public double getCurrentArea(){
+		double result = 0.0;
+		for(int i = 0; i < shapes.length; i++){
+			if(shapes[i].isInPlayArea()) result += shapes[i].getArea();
+		}
+		
+		return result;
+	}
 	public int getElapsedTime(){return 0;}
 	public boolean submit(){return false;}
 	
