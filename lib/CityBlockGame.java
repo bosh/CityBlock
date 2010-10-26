@@ -29,8 +29,8 @@ public class CityBlockGame extends Platform {
 		LevelSpec spec = new LevelSpec();
 		spec.numShapes = 4;
 		spec.desiredShapes[0] = false;
-		spec.desiredShapes[1] = false;
-		spec.desiredShapes[2] = true;
+		spec.desiredShapes[1] = true;
+		spec.desiredShapes[2] = false;
 		
 		LevelSpec[] specs = new LevelSpec[1];
 		specs[0] = spec;

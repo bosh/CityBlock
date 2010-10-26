@@ -94,8 +94,8 @@ public class Shape extends Thing {
 		LineSegment leftEdge = this.getLeftEdge();
 		double bottomWidth = Math.abs(bottomEdge.x1 - bottomEdge.x2);
 		double sideHeight = Math.abs(leftEdge.y1 - leftEdge.y2);
-		g.drawString(bottom, (int)(bottomEdge.x1 + bottomWidth/2), (int)(bottomEdge.y1 + 20));
-		g.drawString(side, (int)(leftEdge.y1 + sideHeight/2), (int)(leftEdge.x1 - 20));
+		g.drawString(bottom, (int)(bottomEdge.xMin() + bottomWidth/2), (int)(bottomEdge.yMin() + 20));
+		g.drawString(side, (int)(leftEdge.xMin() - 20), (int)(leftEdge.yMin() + sideHeight/2) );
 		
 	}
 

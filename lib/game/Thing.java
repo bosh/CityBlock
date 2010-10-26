@@ -83,10 +83,10 @@ public class Thing {
 
 	public LineSegment getLeftEdge(){
 		LineSegment[] segments = getLineSegments();
-		LineSegment result;
+		LineSegment result = null;
 		for(int i = 0; i < segments.length; i++){
 			LineSegment seg = segments[i];
-			if(seg.isVerticle()){
+			if(seg.isVertical()){
 				if(result == null) result = seg;
 				else if(seg.x1 < result.x1) result = seg;
 			}
@@ -95,10 +95,10 @@ public class Thing {
 	}
 	public LineSegment getBottomEdge(){
 		LineSegment[] segments = getLineSegments();
-		LineSegment result;
+		LineSegment result = null;
 		for(int i = 0; i < segments.length; i++){
 			LineSegment seg = segments[i];
-			if(seg.Horizontal()){
+			if(seg.isHorizontal()){
 				if(result == null) result = seg;
 				else if(seg.y1 > result.y1) result = seg;
 			}
