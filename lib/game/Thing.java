@@ -54,7 +54,7 @@ public class Thing {
    }
 
    public double[] distanceTo(Thing other){ //Assumes that there will always be parallel lines between things
-      double[] minimumDistance = new double[] {999, 990};
+      double[] minimumDistance = new double[] {999, 999};
       LineSegment[] segments = this.getLineSegments();
       LineSegment[] otherSegments = other.getLineSegments();
       for(int i = 0; i < segments.length; i++) {
@@ -114,7 +114,7 @@ public class Thing {
       return false;
    }
 
-   public boolean mouseUp(int x, int y) { //TODO: May need to expand functionality
+   public boolean mouseUp(int x, int y) {
       this.held = false;
       return false;
    }

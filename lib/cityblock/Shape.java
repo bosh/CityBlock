@@ -29,17 +29,40 @@ public class Shape extends Thing {
 		return this.level;
 	}
 
-	public boolean mouseDrag(int x, int y) {
-		boolean[] canMoveXY = new boolean[] {true, true};
-		for(int i = 0; i < level.shapes.length; i++){
-			if (!this.isInStagingArea() && level.shapes[i].isInPlayArea() && getPlatform().colliding(this, level.shapes[i])) {
-				canMoveXY[0] = false;
-				canMoveXY[1] = false;
+	public boolean mouseUp(int x, int y) {
+		if (!isInStagingArea() && !isInPlayArea()) {
+			returnToStaging();
+		} else {
+			snapToNearest();
+			Shape[] shapes = level.shapes;
+			for(int i = 0; i < shapes.length; i++){
+				if (!this.isInStagingArea() && shapes[i].isInPlayArea() && getPlatform().colliding(this, shapes[i])) {
+					returnToStaging();
+				}
 			}
 		}
-		if (canMoveXY[0]){ setX(this.x + x - mx); mx = x;} //Yes, yagni for future smarter detection
-		if (canMoveXY[1]){ setY(this.y + y - my); my = y;}
+
+		this.held = false;
 		return false;
+	}
+
+	public void snapToNearest(){
+		double snapToDistance = 35;
+		Thing[] closest = findClosest();
+		for(int xy = 0; xy < 2; xy++) {
+			if (closest[xy] != null) {
+				double distance = distanceTo(closest[xy])[xy];
+				if (Math.abs(distance) < snapToDistance) {
+					if(xy == 0) { setX(getX() - distance); }
+					if(xy == 1) { setY(getY() - distance); }
+				}
+			}
+		}
+	}
+
+	public void returnToStaging(){
+		setX(getPlatform().getWidth() - 150);
+		setY(getPlatform().getHeight() - 150);
 	}
 
 	public Thing[] findClosest(){
@@ -50,7 +73,7 @@ public class Shape extends Thing {
 			if(this != other && !other.isInStagingArea() && this.isInPlayArea()) {
 				double[] distance = this.distanceTo(other);
 				for(int xy = 0; xy < 2; xy++){
-					if (currentClosest[xy] == null || distance[xy] < currentClosest[xy].distanceTo(this)[xy]) {
+					if (currentClosest[xy] == null || Math.abs(distance[xy]) < Math.abs(currentClosest[xy].distanceTo(this)[xy])) {
 						currentClosest[xy] = other;
 					}
 				}
