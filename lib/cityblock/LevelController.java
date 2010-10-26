@@ -33,6 +33,8 @@ public class LevelController {
 		}
 	}
 	
+	
+	
 	public Level generate(LevelSpec spec){
 		Shape[] shapes = new Shape[spec.numShapes];
 		int shapesIndex = 0;
@@ -52,32 +54,44 @@ public class LevelController {
 			}
 		}
 		Level result = new Level(shapes);
-		//work out the target area
-		//work out the number of solutions
-		//add goals
 		
+		int totalShapes = shapes.length;
+		HashMap totalAreas = new HashMap();
 		
-		//flow:
-		/*
-			> generate a random number of each shape (at least one for all shapes specified)
-			> randomly generate dimensions for each shape, within hard-set boundaries
-			> work out all the different areas combining a certain number of shapes (n, n-1, n-2)
-			> pick any combination that appear twice or more (makes it more interesting), rank them by the
-				number of different shapes it takes to make that area. IE if area 42 can be made with 3, and 4 blocks,
-				thats better to pick than area 35 that can only be made with different combos of 3 blocks.
-				
-			> Then randomly pick a goal, exclude certain goals under certain conditions, for example
-			 if there is only one solution you can't have a 'use minimum blocks' goal.
+		int sum = 0;
+		for(int i = 0; i < shapes.length; i++){
+			sum += shapes[i].getArea();
+		}
+		totalAreas.put(Double.valueOf(sum), Integer.valueOf(1));
 		
+		for(int i = 0; i < shapes.length; i++){
+			double newSum = sum - shapes[i].getArea();
+			incrementArea(totalAreas, newSum);
+			for(int j = i+1; j < shapes.length; j++){
+				double crazySum = newSum - shapes[j].getArea();
+				incrementArea(totalAreas, crazySum);
+			}
+		}
 		
-		
-		*/
-		
-		
-		
-		
-		
+		Object[] keys = totalAreas.keySet().toArray();
+		int maxCount = 0;
+		for(int i = 0; i < keys.length; i++){
+			int currentCount = ((Integer)totalAreas.get((Double)keys[i])).intValue();
+			if(currentCount > maxCount) {
+				result.targetArea = ((Double)keys[i]).doubleValue();
+				maxCount = currentCount;
+				}
+			
+			System.out.println("area total " + (Double)keys[i] + ": " + totalAreas.get(((Double)keys[i])));
+		}
+		System.out.println("using: " + result.targetArea);
 		return result;
+	}
+	private void incrementArea(HashMap hash, double sum){
+		Integer count = (Integer)hash.get(Double.valueOf(sum));
+		if(count == null) count = Integer.valueOf(0);
+		int rawCount = count.intValue() + 1;
+		hash.put(Double.valueOf(sum), Integer.valueOf(rawCount));
 	}
 	
 }
