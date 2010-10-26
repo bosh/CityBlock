@@ -4,7 +4,8 @@ import game.*;
 import java.awt.*;
 
 public class Shape extends Thing {
-
+	int width;
+	int height;
 	Level level;
 	public static int maxDimension = 8;
 	public static int dimMultiplier = 20;
@@ -15,7 +16,7 @@ public class Shape extends Thing {
 	
 	//we should not be using ACTUAL width and height for the numbers we display cus they'll be far too high.
 	public Shape(int w, int h){
-		//System.out.println("foo");
+		System.out.println("foo");
 		this.width = w;
 		this.height = h;
 		this.movable = true;
@@ -28,62 +29,35 @@ public class Shape extends Thing {
 	public Level getLevel() {
 		return this.level;
 	}
-	
-	public boolean mouseUp(int x, int y){
-		this.held = false;
-		System.out.println("mouse up");
-		Thing other = findClosest();
 
-		this.snapTo(other);
-
-
+	public boolean mouseDrag(int x, int y) {
+		boolean[] canMoveXY = new boolean[] {true, true};
+		for(int i = 0; i < level.shapes.length; i++){
+			System.out.println(i + " " + !this.isInStagingArea() + " " + level.shapes[i].isInPlayArea() + " " + getPlatform().colliding(this, level.shapes[i]));
+			if (!this.isInStagingArea() && level.shapes[i].isInPlayArea() && getPlatform().colliding(this, level.shapes[i])) {
+				canMoveXY[0] = false;
+				canMoveXY[1] = false;
+			}
+		}
+		if (canMoveXY[0]){ setX(this.x + x - mx); mx = x;} //Yes, yagni for future smarter detection
+		if (canMoveXY[1]){ setY(this.y + y - my); my = y;}
 		return false;
 	}
-	
-	public void snapTo(Thing other){
-		
-		this.setY(other.getTopY() - height/2);
-	}
-	
-	public boolean inStaging(){
-		return this.getX() > (Platform.active.getWidth()*2)/3;
-	}
 
-
-	public boolean isTouching(Thing other){
-		//sides touching, or top/bottom touching
-		
-		//sides touching
-		return ((int)this.distance(other)) == 0;
-//		if(this.getLeftX() == other.getRightX() || this.getRightX() == other.getLeftX())
-//			return this.getTopY() < other.getBottomY() && this.getBottomY() > other.getTopY();
-	
-//		if(this.getTopY() == other.getBottomY() || this.getBottomY() == other.getTopY())
-//			return this.getLeftX() < other.getRightX() && this.getRightX() > other.getLeftX();
-//		return false;
-	}
-
-	public Thing findClosest(){
-		if(this.inStaging()) return null;
-		if(this.held) return null;
-		
-		Thing currentClosest = null;
-
-		if(this.distance(level.buildingBase) < 55 && !this.isTouching(level.buildingBase)) currentClosest = level.buildingBase;	
-		for(int i = 0; i < level.shapes.length; i++){
-			Shape other = level.shapes[i];
-			if(this != other && other.getX() != 0.0 && !other.inStaging() && other.distance(this) < 55 && !other.isTouching(this)){
-				if(currentClosest == null) currentClosest = other;
-				if(currentClosest != null && other.distance(this) < currentClosest.distance(this)) currentClosest = other;	
+	public Thing[] findClosest(){
+		Thing[] currentClosest = new Thing[] {null, this.getLevel().buildingBase}; //null because it should not snap horizontally by default
+		Shape[] shapes = level.shapes;
+		for(int i = 0; i < shapes.length; i++){
+			Shape other = shapes[i];
+			if(this != other && !other.isInStagingArea() && this.isInPlayArea()) {
+				double[] distance = this.distanceTo(other);
+				for(int xy = 0; xy < 2; xy++){
+					if (distance[xy] < currentClosest[xy].distanceTo(this)[xy]) {
+						currentClosest[xy] = other;
+					}
+				}
 			}
-			
 		}
-		System.out.print("closest object distance, x, y: ");
-		System.out.print(currentClosest.distance(this));
-		System.out.print(" " + currentClosest.getX());
-		System.out.print(" " + currentClosest.getY());
-		System.out.println();
-		
 		return currentClosest;
 	}
 

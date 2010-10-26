@@ -11,8 +11,7 @@ public class Thing {
    protected double X[] = new double[100];
    protected double Y[] = new double[100];
    int n = 0;
-	public int width;
-	public int height;
+
    int IX[] = new int[100];
    int IY[] = new int[100];
    protected double x = 0, y = 0, mx = 0, my = 0;
@@ -46,17 +45,22 @@ public class Thing {
       g.drawPolygon(polygon);
    }
 
-	public double distance(Thing other){
-		double result = 0;
-		
-		//if(other.getX() < this.getX()) result += this.getX() - width - other.getX() + other.width;
-		//else result += other.getX() - other.width - this.getX()+width;
-		if(other.getY() < this.getY()) result += this.getTopY() - other.getBottomY();
-		if(other.getY() > this.getY()) result += other.getTopY() - this.getBottomY();
-		
-		return result;
-	}
-
+   public double[] distanceTo(Thing other){ //Assumes that there will always be parallel lines between things
+      double[] minimumDistance = new double[] {999, 990};
+      LineSegment[] segments = this.getLineSegments();
+      LineSegment[] otherSegments = other.getLineSegments();
+      for(int i = 0; i < segments.length; i++) {
+         for(int j = 0; j < otherSegments.length; j++) {
+            double[] distance = segments[i].distanceTo(otherSegments[j]);
+            for(int xy = 0; xy < 2; xy++) { //as in [0] is x, [1] is y. 
+               if (distance[xy] < minimumDistance[xy]) {
+                  minimumDistance[i] = distance[i];
+               }
+            }
+         }
+      }
+      return minimumDistance;
+   }
 
    public LineSegment[] getLineSegments() {
       LineSegment[] segments = new LineSegment[n];
@@ -121,11 +125,6 @@ public class Thing {
    public void setLineColor(Color color){
      this.lineColor = color;
    }
-
-	public double getLeftX(){return x - width/2;}
-	public double getRightX(){return x + width/2;}
-	public double getTopY(){return y - height/2;}
-	public double getBottomY(){return y + height/2;}
 
    public double getX() { return x; }
    public double getY() { return y; }

@@ -5,10 +5,8 @@ import java.util.*;
 
 public class TriangleShape extends cityblock.Shape{
 	//simple at first, just makes right-angle triangles only
-
-
-	
 	public TriangleShape(int w, int h){
+		super(w, h);
 		this.setColor(Color.green);
 		this.setLineColor(Color.green);
 	}
