@@ -16,7 +16,7 @@ public class Shape extends Thing {
 	
 	//we should not be using ACTUAL width and height for the numbers we display cus they'll be far too high.
 	public Shape(int w, int h){
-		//System.out.println("foo");
+
 		this.width = w;
 		this.height = h;
 		this.movable = true;
@@ -33,7 +33,7 @@ public class Shape extends Thing {
 	public boolean mouseDrag(int x, int y) {
 		boolean[] canMoveXY = new boolean[] {true, true};
 		for(int i = 0; i < level.shapes.length; i++){
-			//System.out.println(i + " " + !this.isInStagingArea() + " " + level.shapes[i].isInPlayArea() + " " + getPlatform().colliding(this, level.shapes[i]));
+
 			if (!this.isInStagingArea() && level.shapes[i].isInPlayArea() && getPlatform().colliding(this, level.shapes[i])) {
 				canMoveXY[0] = false;
 				canMoveXY[1] = false;
@@ -52,7 +52,7 @@ public class Shape extends Thing {
 			if(this != other && !other.isInStagingArea() && this.isInPlayArea()) {
 				double[] distance = this.distanceTo(other);
 				for(int xy = 0; xy < 2; xy++){
-					if (distance[xy] < currentClosest[xy].distanceTo(this)[xy]) {
+					if (currentClosest[xy] == null || distance[xy] < currentClosest[xy].distanceTo(this)[xy]) {
 						currentClosest[xy] = other;
 					}
 				}
