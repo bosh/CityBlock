@@ -4,7 +4,7 @@ import game.*;
 
 public class Level {
 	public Shape[] shapes;
-	public int targetArea;
+	public double targetArea;
 	public Goal[] goals;
 	public int id;
 	public String description;
@@ -46,6 +46,15 @@ public class Level {
 		}
 	}
 	public void renderOverlay(java.awt.Graphics g){
+		//1. Render the overlay for each object
+		//2. Display the target area
+		//3. Display the level number
+		for(int i = 0; i < shapes.length; i++){
+			Shape s = shapes[i];
+			s.renderOverlay(g);
+		}
+		
+		
 		//renders tutorial text until its finished
 		//renders numbers next to the shapes
 	}

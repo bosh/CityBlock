@@ -17,6 +17,9 @@ public class TriangleShape extends cityblock.Shape{
 		TriangleShape result = new TriangleShape(dimension, dimension2);
 		return result;
 	}
+	public double getArea(){
+		return this.getGameHeight()*((double)this.getGameWidth()*0.5);
+	}
 	
 	public void setup(int x, int y){
 		X[0] = x;

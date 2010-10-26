@@ -7,16 +7,16 @@ public class Shape extends Thing {
 	int width;
 	int height;
 	Level level;
-	public static int maxDimension = 8;
+	public static int maxDimension = 6;
 	public static int dimMultiplier = 20;
 	
-	public int getArea(){return this.getGameHeight()*this.getGameWidth();}
+	public double getArea(){return this.getGameHeight()*this.getGameWidth();}
 	public int getGameHeight(){return height / dimMultiplier;}
 	public int getGameWidth(){return width / dimMultiplier;}
 	
 	//we should not be using ACTUAL width and height for the numbers we display cus they'll be far too high.
 	public Shape(int w, int h){
-		System.out.println("foo");
+		//System.out.println("foo");
 		this.width = w;
 		this.height = h;
 		this.movable = true;
@@ -33,7 +33,7 @@ public class Shape extends Thing {
 	public boolean mouseDrag(int x, int y) {
 		boolean[] canMoveXY = new boolean[] {true, true};
 		for(int i = 0; i < level.shapes.length; i++){
-			System.out.println(i + " " + !this.isInStagingArea() + " " + level.shapes[i].isInPlayArea() + " " + getPlatform().colliding(this, level.shapes[i]));
+			//System.out.println(i + " " + !this.isInStagingArea() + " " + level.shapes[i].isInPlayArea() + " " + getPlatform().colliding(this, level.shapes[i]));
 			if (!this.isInStagingArea() && level.shapes[i].isInPlayArea() && getPlatform().colliding(this, level.shapes[i])) {
 				canMoveXY[0] = false;
 				canMoveXY[1] = false;
