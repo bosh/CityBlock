@@ -14,11 +14,11 @@ public class LineSegment {
 		double[] distance = new double[] {999,999};
 		if (isHorizontal() && other.isHorizontal()) {
 			if (true) {
-				distance[0] = x1 - other.x1;
+				distance[1] = y1 - other.y1;
 			}
 		} else if (isVertical() && other.isVertical()){
-			if (true){
-				distance[1] = y1 - other.y1;
+			if (true) {
+				distance[0] = x1 - other.x1;
 			}
 		}
 		return distance;
