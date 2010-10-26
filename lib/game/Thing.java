@@ -114,7 +114,6 @@ public class Thing {
    public boolean contains(Thing contained) {
       updateShape();
       for(int i = 0; i < n; i++) {
-         //System.out.println(polygon.contains(X[i], Y[i]));
          if (!polygon.contains(X[i], Y[i])) return false;
       }
       return true;
