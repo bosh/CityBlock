@@ -4,8 +4,10 @@ package game;
 
 public class StaticRect extends Thing
 {
-   public StaticRect(double x, double y, double width, double height) {
-      this.x = x + width / 2;
+   public StaticRect(double x, double y, int width, int height) {
+     this.width = width;
+	this.height = height;
+ 		this.x = x + width / 2;
       this.y = y + height / 2;
       X[0] = x;
       Y[0] = y;

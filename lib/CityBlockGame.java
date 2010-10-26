@@ -13,10 +13,10 @@ public class CityBlockGame extends Platform {
 		int bWidth = this.getWidth();
 		int bHeight = this.getHeight();
 		
-		playArea = new StaticRect(0, 0, (2*bWidth)/3, bHeight);
-		playArea.setColor(Color.white);
-		playArea.setLineColor(Color.white);
-		addThing(playArea);
+//		playArea = new StaticRect(0, 0, (2*bWidth)/3, bHeight);
+//		playArea.setColor(Color.white);
+//		playArea.setLineColor(Color.white);
+//		addThing(playArea);
 
 		stagingArea = new StaticRect(bWidth - bWidth/3, 0, bWidth/3, bHeight);
 		stagingArea.setColor(new Color(240,255,240));
@@ -27,7 +27,7 @@ public class CityBlockGame extends Platform {
 	
 		//_currentLevel = _controller.getLevel(1);
 		LevelSpec spec = new LevelSpec();
-		spec.numShapes = 10;
+		spec.numShapes = 4;
 		spec.desiredShapes[0] = true;
 		spec.desiredShapes[1] = true;
 		spec.desiredShapes[2] = true;

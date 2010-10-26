@@ -12,7 +12,7 @@ public class Level {
 	public StaticRect buildingBase;
 	
 	public void start(Platform p){
-		buildingBase = new StaticRect(p.getWidth()/3 - 150, p.getHeight() - 30, 300, 60 );
+		buildingBase = new StaticRect(p.getWidth()/3 - 150, p.getHeight() - 30, 300, 30 );
 		buildingBase.setColor(java.awt.Color.gray);
 		p.addThing(buildingBase);
 		
@@ -31,19 +31,7 @@ public class Level {
 	}
 
 	public void render(){
-		//displays tutorial until the user has finished with it
-		//snaps to grid and all that stuff.
-		//hard coding platform location and staging area location.
-		
-		//this moves a shape up against its nearest neighbour. Also need to implement snap to within a certain radius
-		for(int i = 0; i < shapes.length; i++){
-			Shape s = shapes[i];
-			if(!s.isInStagingArea() && !s.held){
-				Thing[] closestTo = s.findClosest();
-				s.moveTowards(closestTo[0], 20); //needs implementing (by alex :-) )
-				s.moveTowards(closestTo[1], 20); //needs implementing (by alex :-) )
-			}
-		}
+		//displays tutorial.
 	}
 	public void renderOverlay(java.awt.Graphics g){
 		//renders tutorial text until its finished

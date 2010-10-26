@@ -11,12 +11,17 @@ import java.io.*;
 import java.net.*;
 
 public class Platform extends BufferedApplet {
+	public static Platform active;
    int w = 0, h = 0;
    Color bgColor = Color.white;
    Thing selectedThing = null;
    ArrayList things = new ArrayList();
    public StaticRect stagingArea;
    public StaticRect playArea;
+
+	public Platform(){
+		Platform.active = this;
+	}
 
    // GET THE iTH THING IN THIS PLATFORM
    public Thing thing(int i) { return ((Thing)things.get(i)); }
