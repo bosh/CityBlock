@@ -30,11 +30,19 @@ public class Thing {
    }
 
    public boolean isInStagingArea(){
-      return platform.stagingArea.contains(this);
+      double areaDivider = platform.getWidth() * 2.0 / 3.0;
+      for(int i = 0; i < n; i++){
+         if (X[i] < areaDivider) { return false; }
+      }
+      return true;
    }
 
    public boolean isInPlayArea(){
-      return platform.playArea.contains(this);
+      double areaDivider = platform.getWidth() * 2.0 / 3.0;
+      for(int i = 0; i < n; i++){
+         if (X[i] > areaDivider) { return false; }
+      }
+      return true;
    }
    
    public void update(Graphics g) {
@@ -54,7 +62,7 @@ public class Thing {
             double[] distance = segments[i].distanceTo(otherSegments[j]);
             for(int xy = 0; xy < 2; xy++) { //as in [0] is x, [1] is y. 
                if (distance[xy] < minimumDistance[xy]) {
-                  minimumDistance[i] = distance[i];
+                  minimumDistance[xy] = distance[xy];
                }
             }
          }
