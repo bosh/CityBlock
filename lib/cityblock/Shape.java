@@ -55,17 +55,18 @@ public class Shape extends Thing {
 			if (closest[xy] != null) {
 				double distance = distanceTo(closest[xy])[xy];
 				if (Math.abs(distance) < snapToDistance) {
-					if(xy == 0) { setX(getX() - distance + 1); }
-					if(xy == 1) { setY(getY() - distance + 1); }
+					if(xy == 0 && distance > 0) { setX(getX() - distance + 1); }
+					if(xy == 0 && distance < 0) { setX(getX() - distance - 1); }
+					if(xy == 1 && distance > 0) { setY(getY() - distance + 1); }
+					if(xy == 1 && distance < 0) { setY(getY() - distance - 1); }
 				}
 			}
 		}
 	}
 
-	public void returnToStaging(){
+	public void returnToStaging(){ //TODO make this target a specific place for objects to come back
 		setX(getPlatform().getWidth() - 150);
 		setY(getPlatform().getHeight() - 150);
-		System.out.println("x, y = " + getX() + ", " + getY() );
 	}
 
 	public Thing[] findClosest(){

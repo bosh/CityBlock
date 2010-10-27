@@ -11,6 +11,9 @@ public class LineSegment {
 	}
 	
 	public double[] distanceTo(LineSegment other){ //Only returns parallel line distances
+		if (other == null) {
+			return new double[] {999,999};
+		}
 		double[] distance = new double[] {999,999};
 		if (isHorizontal() && other.isHorizontal()) {
 			if ((x1 >= other.xMin() && x1 <= other.xMax()) || (x2 >= other.xMin() && x2 <= other.xMax()) || (other.x1 >= xMin() && other.x1 <= xMax()) || (other.x2 >= xMin() && other.x2 <= xMax())) {

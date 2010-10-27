@@ -54,18 +54,17 @@ public class Thing {
    }
 
    public double[] distanceTo(Thing other){ //Assumes that there will always be parallel lines between things
-      double[] minimumDistance = new double[] {999, 999};
-      LineSegment[] segments = this.getLineSegments();
-      LineSegment[] otherSegments = other.getLineSegments();
-      for(int i = 0; i < segments.length; i++) {
-         for(int j = 0; j < otherSegments.length; j++) {
-            double[] distance = segments[i].distanceTo(otherSegments[j]);
-            for(int xy = 0; xy < 2; xy++) { //as in [0] is x, [1] is y. 
-               if (distance[xy] < minimumDistance[xy]) {
-                  minimumDistance[xy] = distance[xy];
-               }
-            }
-         }
+      double left = getLeftEdge().distanceTo(other.getRightEdge())[0];
+      double right = getRightEdge().distanceTo(other.getLeftEdge())[0];
+      double top = getTopEdge().distanceTo(other.getBottomEdge())[1];
+      double bottom = getBottomEdge().distanceTo(other.getTopEdge())[1];
+
+      double[] minimumDistance = new double[] {left, top};
+      if (Math.abs(right) < Math.abs(left)){
+         minimumDistance[0] = right;
+      }
+      if (Math.abs(bottom) < Math.abs(top)){
+         minimumDistance[0] = right;
       }
       return minimumDistance;
    }
