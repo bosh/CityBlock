@@ -1,5 +1,6 @@
 package cityblock;
 import cityblock.*;
+import game.*;
 import java.awt.*;
 import java.util.*;
 
@@ -15,6 +16,6 @@ public class SquareShape extends cityblock.RectShape{
 		SquareShape result = new SquareShape(dimension);
 		return result;
 	}
-	
+
 	
 }
