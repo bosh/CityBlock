@@ -69,7 +69,7 @@ public class Level {
 		action = 0;
 		nextAction = 0;
 		notePlayed = 0;
-		platform.removeThing(completedButton);
+		if(completedButton != null) platform.removeThing(completedButton);
 		completedButton = null;
 		
 	}
