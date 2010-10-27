@@ -182,7 +182,7 @@ public class Thing {
       needToUpdateShape = true;
    }
 
-   void updateShape() {
+   public void updateShape() {
       if (needToUpdateShape) {
          for (int i = 0 ; i < n ; i++) {
             X[i] += moveX;

@@ -36,6 +36,7 @@ public class Shape extends Thing {
 		} else {
 			snapToNearest();
 			Shape[] shapes = level.shapes;
+			updateShape();
 			for(int i = 0; i < shapes.length; i++){
 				if (!this.isInStagingArea() && shapes[i].isInPlayArea() && getPlatform().colliding(this, shapes[i])) {
 					returnToStaging();
@@ -54,8 +55,8 @@ public class Shape extends Thing {
 			if (closest[xy] != null) {
 				double distance = distanceTo(closest[xy])[xy];
 				if (Math.abs(distance) < snapToDistance) {
-					if(xy == 0) { setX(getX() - distance); }
-					if(xy == 1) { setY(getY() - distance); }
+					if(xy == 0) { setX(getX() - distance + 1); }
+					if(xy == 1) { setY(getY() - distance + 1); }
 				}
 			}
 		}
@@ -75,7 +76,7 @@ public class Shape extends Thing {
 			if(this != other && !other.isInStagingArea() && this.isInPlayArea()) {
 				double[] distance = this.distanceTo(other);
 				for(int xy = 0; xy < 2; xy++){
-					if (currentClosest[xy] == null || Math.abs(distance[xy]) < Math.abs(currentClosest[xy].distanceTo(this)[xy])) {
+					if (currentClosest[xy] == null || Math.abs(distance[xy]) < Math.abs(distanceTo(currentClosest[xy])[xy])) {
 						currentClosest[xy] = other;
 					}
 				}
