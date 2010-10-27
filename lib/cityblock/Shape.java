@@ -88,6 +88,7 @@ public class Shape extends Thing {
 	}
 	
 	public void renderOverlay(Graphics g){
+		if(this.isInPlayArea() && !this.held) return;
 		String bottom = ""+ getGameWidth();
 		String side = "" + getGameHeight();
 		LineSegment bottomEdge = this.getBottomEdge();

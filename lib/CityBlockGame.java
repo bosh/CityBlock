@@ -27,10 +27,10 @@ public class CityBlockGame extends Platform {
 	
 		//_currentLevel = _controller.getLevel(1);
 		LevelSpec spec = new LevelSpec();
-		spec.numShapes = 4;
-		spec.desiredShapes[0] = false;
+		spec.numShapes = 6;
+		spec.desiredShapes[0] = true;
 		spec.desiredShapes[1] = true;
-		spec.desiredShapes[2] = false;
+		spec.desiredShapes[2] = true;
 		
 		LevelSpec[] specs = new LevelSpec[1];
 		specs[0] = spec;
