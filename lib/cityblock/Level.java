@@ -16,7 +16,7 @@ public class Level {
 	public Platform platform;
 	public int startTime;
 	public boolean completed = false;
-	double total = 0;
+
 	int action = 0;
 	String[] screenText = new String[]{"", "", ""};
 	
@@ -64,7 +64,7 @@ public class Level {
 		resetShapes(platform);
 		doEndLevel = false;
 		screenText = new String[]{"", "", ""};
-		total = 0;
+		total = "";
 		action = 0;
 		nextAction = 0;
 		
@@ -145,6 +145,8 @@ public class Level {
 		}
 	}
 
+	String total = "";
+	
 	private void renderEndLevel(){
 		Date current = new Date();
 		if(nextAction == 0) nextAction = current.getTime()+750;//milliseconds
@@ -154,10 +156,11 @@ public class Level {
 			while(action < shapes.length && !shapes[action].isInPlayArea()) action++;
 			if(action < shapes.length){
 				shapes[action].highlight();
+				if(!total.equals("")) total += " + ";
 				total += shapes[action].getArea();
 				action++;
 			}else{
-
+				if(!total.contains("=")) total += " = " + getCurrentArea();
 				if(targetArea == getCurrentArea()){
 					screenText[2] = "Good Job! Level Complete";
 					if(completedButton == null) {
