@@ -99,11 +99,4 @@ public class Shape extends Thing {
 		g.drawString(side, (int)(leftEdge.xMin() - 20), (int)(leftEdge.yMin() + sideHeight/2) );
 		
 	}
-
-	public void moveTowards(game.Thing other, int movementRate){
-		//initial implementation - immediately snaps to
-		// this.setthis.distanceTo(other)
-		//this should move closer to other at a rate of min(this.distanceTo(other), movementRate)
-	}
-
 }
