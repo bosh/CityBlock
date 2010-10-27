@@ -41,7 +41,10 @@ public class Shape extends Thing {
 	}
 
 	public boolean mouseUp(int x, int y) {
-		if(isInStagingArea()) return false;
+		if(isInStagingArea()){
+			rotate();
+			return false;
+		}
 		if (!isInStagingArea() && !isInPlayArea()) {
 			returnToStaging();
 		} else {
@@ -117,8 +120,12 @@ public class Shape extends Thing {
 		LineSegment leftEdge = this.getLeftEdge();
 		double bottomWidth = Math.abs(bottomEdge.x1 - bottomEdge.x2);
 		double sideHeight = Math.abs(leftEdge.y1 - leftEdge.y2);
-		g.drawString(bottom, (int)(bottomEdge.xMin() + bottomWidth/2), (int)(bottomEdge.yMin() + 15));
-		g.drawString(side, (int)(leftEdge.xMin() - 15), (int)(leftEdge.yMin() + 7 + sideHeight/2) );
-		
+		if (rotation == 0 || rotation == 180) {
+			g.drawString(bottom, (int)(bottomEdge.xMin() + bottomWidth/2), (int)(bottomEdge.yMin() + 15));
+			g.drawString(side, (int)(leftEdge.xMin() - 15), (int)(leftEdge.yMin() + 7 + sideHeight/2) );
+		} else if (rotation == 90 || rotation == 270) {
+			g.drawString(side, (int)(bottomEdge.xMin() + bottomWidth/2), (int)(bottomEdge.yMin() + 15));
+			g.drawString(bottom, (int)(leftEdge.xMin() - 15), (int)(leftEdge.yMin() + 7 + sideHeight/2) );
+		}
 	}
 }

@@ -16,6 +16,7 @@ public class Thing {
    int IY[] = new int[100];
    protected double x = 0, y = 0, mx = 0, my = 0;
    double moveX = 0, moveY = 0;
+   public int rotation = 0;
 
    Polygon polygon = null;
    boolean needToUpdateShape = false;
@@ -69,6 +70,20 @@ public class Thing {
       return minimumDistance;
    }
 
+   public void rotate() { //90degrees clockwise
+      double[] newX = new double[100];
+      double[] newY = new double[100];
+      for(int i = 0; i < n; i++) {
+         newX[i] = Y[i] - y + x;
+         newY[i] = -(X[i] - x) + y;
+      }
+      X = newX;
+      Y = newY;
+      rotation = rotation + 90;
+      if (rotation >= 360){ rotation = rotation - 360; }
+      needToUpdateShape = true;
+   }
+
    public LineSegment[] getLineSegments() {
       LineSegment[] segments = new LineSegment[n];
       for(int i = 0; i < n-1; i++){
@@ -104,11 +119,13 @@ public class Thing {
    public LineSegment getTopEdge(){ return getSingleEdge("top"); }
 
    public boolean contains(int x, int y) {
+      needToUpdateShape = true;
       updateShape();
       return polygon.contains(x, y);
    }
 
    public boolean contains(Thing contained) {
+      needToUpdateShape = true;
       updateShape();
       for(int i = 0; i < n; i++) {
          if (!polygon.contains(X[i], Y[i])) return false;
