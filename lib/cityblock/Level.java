@@ -64,6 +64,9 @@ public class Level {
 		resetShapes(platform);
 		doEndLevel = false;
 		screenText = new String[]{"", "", ""};
+		total = 0;
+		action = 0;
+		nextAction = 0;
 		
 	}
 	public void destroy(){
