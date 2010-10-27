@@ -22,6 +22,8 @@ public class TriangleShape extends cityblock.Shape{
 	}
 	
 	public void setup(int x, int y){
+		this.x = x + width / 2;
+      	this.y = y + height / 2;
 		X[0] = x;
 		Y[0] = y;
 		Y[1] = y + this.height;
