@@ -54,17 +54,17 @@ public class Thing {
    }
 
    public double[] distanceTo(Thing other){ //Assumes that there will always be parallel lines between things
-      double left = getLeftEdge().distanceTo(other.getRightEdge())[0];
-      double right = getRightEdge().distanceTo(other.getLeftEdge())[0];
-      double top = getTopEdge().distanceTo(other.getBottomEdge())[1];
-      double bottom = getBottomEdge().distanceTo(other.getTopEdge())[1];
+      double left    = getLeftEdge().distanceTo(   other.getRightEdge())   [0];
+      double right   = getRightEdge().distanceTo(  other.getLeftEdge())    [0];
+      double top     = getTopEdge().distanceTo(    other.getBottomEdge())  [1];
+      double bottom  = getBottomEdge().distanceTo( other.getTopEdge())     [1];
 
       double[] minimumDistance = new double[] {left, top};
       if (Math.abs(right) < Math.abs(left)){
          minimumDistance[0] = right;
       }
       if (Math.abs(bottom) < Math.abs(top)){
-         minimumDistance[0] = right;
+         minimumDistance[1] = bottom;
       }
       return minimumDistance;
    }
