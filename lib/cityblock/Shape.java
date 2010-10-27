@@ -61,7 +61,7 @@ public class Shape extends Thing {
 
 	public boolean snapToNearest(){
 		boolean snapped = false;
-		double snapToDistance = 35;
+		double snapToDistance = dimMultiplier - 1;
 		Thing[] closest = findClosest();
 		for(int xy = 0; xy < 2; xy++) {
 			if (closest[xy] != null) {
