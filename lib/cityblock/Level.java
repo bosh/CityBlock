@@ -1,6 +1,7 @@
 package cityblock;
 import cityblock.*;
 import game.*;
+import java.awt.*;
 
 public class Level {
 	public Shape[] shapes;
@@ -11,11 +12,14 @@ public class Level {
 	public String description;
 	public Tutorial tutorial;
 	public StaticRect buildingBase;
+	public Platform platform;
+	
 	
 	public void start(Platform p){
 		buildingBase = new StaticRect(p.getWidth()/3 - 150, p.getHeight() - 30, 300, 60 );
 		buildingBase.setColor(java.awt.Color.gray);
 		p.addThing(buildingBase);
+		platform = p;
 		
 		for(int i = 0; i < this.shapes.length; i++){
 			Shape s = shapes[i];
@@ -38,6 +42,8 @@ public class Level {
 		}
 	}
 	public void renderOverlay(java.awt.Graphics g){
+		g.setColor(new Color(85, 85, 85));
+		g.drawString("Target Area: " + targetArea,platform.getWidth()*2/3 + 20 , platform.getHeight() - 20);
 		//1. Render the overlay for each object
 		//2. Display the target area
 		//3. Display the level number
