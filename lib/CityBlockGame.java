@@ -37,6 +37,7 @@ public class CityBlockGame extends Platform {
 		else{
 			nextLevel();
 		}
+		SoundController.active.housekeeping();
 		
 	}
 	
