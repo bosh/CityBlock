@@ -81,30 +81,28 @@ public class Thing {
       return segments;
    }
 
-	public LineSegment getLeftEdge(){
-		LineSegment[] segments = getLineSegments();
-		LineSegment result = null;
-		for(int i = 0; i < segments.length; i++){
-			LineSegment seg = segments[i];
-			if(seg.isVertical()){
-				if(result == null) result = seg;
-				else if(seg.x1 < result.x1) result = seg;
-			}
-		}
-		return result;
-	}
-	public LineSegment getBottomEdge(){
-		LineSegment[] segments = getLineSegments();
-		LineSegment result = null;
-		for(int i = 0; i < segments.length; i++){
-			LineSegment seg = segments[i];
-			if(seg.isHorizontal()){
-				if(result == null) result = seg;
-				else if(seg.y1 > result.y1) result = seg;
-			}
-		}
-		return result;
-	}
+   public LineSegment getSingleEdge(String location) {
+      LineSegment[] segments = getLineSegments();
+      LineSegment result = null;
+      for(int i = 0; i < segments.length; i++){
+         LineSegment seg = segments[i];
+         if(location == "left" && seg.isVertical()){
+            if(result == null || seg.x1 < result.x1) { result = seg; }
+         } else if(location == "right" && seg.isVertical()){
+            if(result == null || seg.x1 > result.x1) { result = seg; }
+         } else if(location == "bottom" && seg.isHorizontal()){
+            if(result == null || seg.y1 > result.y1) { result = seg; }
+         } else if(location == "top" && seg.isHorizontal()){
+            if(result == null || seg.y1 < result.y1) { result = seg; }
+         }
+      }
+      return result;
+   }
+
+   public LineSegment getLeftEdge(){ return getSingleEdge("left"); }
+   public LineSegment getRightEdge(){ return getSingleEdge("right"); }
+   public LineSegment getBottomEdge(){ return getSingleEdge("bottom"); }
+   public LineSegment getTopEdge(){ return getSingleEdge("top"); }
 
    public boolean contains(int x, int y) {
       updateShape();
