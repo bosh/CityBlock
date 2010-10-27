@@ -32,10 +32,12 @@ public class Button extends StaticRect {
    public boolean mouseDown(int x, int y) {
 		System.out.println("click");
 		level.submit(this.type);
+		setColor(Color.gray);
 		return false;
 	}
 	public boolean mouseUp(int x, int y){
 		System.out.println("click-up");		
+		setColor(Color.lightGray);
 		return false;
 	}
 	

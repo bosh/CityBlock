@@ -6,8 +6,7 @@ public class RectShape extends cityblock.Shape {
 	
 	public RectShape(int w, int h){
 		super(w, h);
-		this.setColor(Color.blue);
-		this.setLineColor(Color.blue);
+		defaultColor = Color.blue;
 	}
 	
 	public static Shape randomize(){
