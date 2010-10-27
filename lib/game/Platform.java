@@ -94,6 +94,10 @@ public class Platform extends BufferedApplet {
       thing.setPlatform(this);
    }
 
+	public void removeThing(Thing thing){
+		things.remove(things.indexOf(thing));
+	}
+
    // HANDLE PLAYING AN AUDIO CLIP, WHETHER FROM A URL OR A LOCAL FILE
    public Clip playClip(String fileName) {
       Clip clip = null;

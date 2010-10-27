@@ -13,16 +13,24 @@ public class LevelController {
 
 	
 	
-	public LevelController(LevelSpec[] levels){
+	public LevelController(){
+		
+		_levels = new LevelSpec[4];
+		_levels[0] = new LevelSpec(3, true, true, false);
+		
+		_levels[1] = new LevelSpec(6, true, true, false);
+		_levels[2] = new LevelSpec(4, false, true, true);
+		_levels[3] = new LevelSpec(6, true, true, true);
 		//read in levels file and create hash
 		_top = 100;
-		_levels = levels;
 	}
 	
 	public Level getLevel(int i){
 		if(i > _top-1) return null;
 		return generate(_levels[i]);
 	}
+	
+	
 	
 	private Shape getShape(int i){
 		switch(i){

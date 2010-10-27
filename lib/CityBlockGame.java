@@ -2,9 +2,11 @@ import game.*;
 import java.awt.*;
 import cityblock.*;
 public class CityBlockGame extends Platform {
-	Level _currentLevel;
+	Level _currentLevel = null;
 	boolean _showMenu;
 	LevelController _controller;
+	LevelSpec[] _levelSpecs;
+	int current = 0;
 	
 	public void setup(){
 		//_controller = new LevelController();
@@ -24,27 +26,30 @@ public class CityBlockGame extends Platform {
 		addThing(stagingArea);
 
 		//ths is setting up the first level, but hacked at the moment for testing
-	
+		_controller = new LevelController();
 		//_currentLevel = _controller.getLevel(1);
-		LevelSpec spec = new LevelSpec();
-		spec.numShapes = 6;
-		spec.desiredShapes[0] = true;
-		spec.desiredShapes[1] = true;
-		spec.desiredShapes[2] = true;
-		
-		LevelSpec[] specs = new LevelSpec[1];
-		specs[0] = spec;
-		LevelController l = new LevelController(specs);
-		_currentLevel = l.getLevel(0);
-		
-		_currentLevel.start(this);
+		nextLevel();
 	}
 	
 	public void update(){
-		_currentLevel.update();
+		if(!_currentLevel.completed)
+			{_currentLevel.update();}
+		else{
+			nextLevel();
+		}
 		
-		
-		
+	}
+	
+	public void makeLevelSpecs(){
+
+	}
+	public void nextLevel(){
+		if(_currentLevel != null){
+			_currentLevel.destroy();
+		}
+		_currentLevel = _controller.getLevel(current);
+		current++;
+		_currentLevel.start(this);
 	}
 
 	public void overlay(Graphics g) {

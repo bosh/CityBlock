@@ -9,6 +9,12 @@ public class Shape extends Thing {
 	Level level;
 	public static int maxDimension = 5;
 	public static int dimMultiplier = 20;
+	protected Color defaultColor = Color.gray;
+	
+	public void reset(){
+		setColor(defaultColor);
+		setLineColor(defaultColor);
+	}
 	
 	public double getArea(){return this.getGameHeight()*this.getGameWidth();}
 	public int getGameHeight(){return height / dimMultiplier;}

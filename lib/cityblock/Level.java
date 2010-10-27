@@ -15,6 +15,7 @@ public class Level {
 	public StaticRect buildingBase;
 	public Platform platform;
 	public int startTime;
+	public boolean completed = false;
 	double total = 0;
 	int action = 0;
 	String[] screenText = new String[]{"", "", ""};
@@ -33,22 +34,47 @@ public class Level {
 	}
 	
 	public void start(Platform p){
-		
+		platform = p;		
 		buildingBase = new StaticRect(p.getWidth()/3 - 150, p.getHeight() - 30, 300, 30 );
 		buildingBase.setColor(java.awt.Color.gray);
-		button = new Button(p.getWidth()*2/3 - 75, p.getHeight() - 35, 70, 30, this, "Submit", 0);
+		button = new Button(p.getWidth()*2/3 - 80, p.getHeight() - 35, 70, 30, this, "Submit", 0);
+		resetButton = new Button(10, p.getHeight() - 35, 70, 30, this, "Reset", 1);
+		p.addThing(resetButton);
 		p.addThing(button);
 		p.addThing(buildingBase);
-		platform = p;
+
+		for(int i = 0; i < this.shapes.length; i++){
+			shapes[i].setup(0, 0);
+			p.addThing(shapes[i]);
+		}
+		resetShapes(p);
+	}
+	public void resetShapes(Platform p){
 		int offset = 20;		
 		for(int i = 0; i < this.shapes.length; i++){
 			Shape s = shapes[i];
 			if(i > 0) offset += shapes[i-1].height + 20;
-			s.setup(p.getWidth() - p.getWidth()/3 + 50, offset);
-			p.addThing(shapes[i]);
+			s.setX(p.getWidth() - p.getWidth()/3 + 50 + s.width/2);
+			s.setY(offset + s.height/2);
+			s.reset();
 		}
+		
 	}
-	
+	public void reset(){
+		resetShapes(platform);
+		doEndLevel = false;
+		screenText = new String[]{"", "", ""};
+		
+	}
+	public void destroy(){
+		for(int i = 0; i < shapes.length; i++){
+			platform.removeThing(shapes[i]);
+		}
+		platform.removeThing(completedButton);
+		platform.removeThing(button);
+		platform.removeThing(resetButton);
+		platform.removeThing(buildingBase);
+	}
 
 	public void update(){
 		if(doEndLevel){
@@ -100,21 +126,18 @@ public class Level {
 	
 	public int getElapsedTime(){return 0;}
 	long nextAction = 0;
-	boolean completed = false;
 
 	public void submit(int type){
 		switch(type){
 			case 0:
 				doEndLevel = true;
-
 				return;
 			case 1:
 				reset();
 				doEndLevel = false;
-				completed = false;
 				return;
 			case 2:
-				nextLevel();
+				completed = true;
 				return;
 		}
 	}
@@ -131,20 +154,16 @@ public class Level {
 				total += shapes[action].getArea();
 				action++;
 			}else{
-				if(resetButton == null){
-					resetButton = new Button(100, 140, 70, 30, this, "Reset", 1);
-					platform.addThing(resetButton);
-				}
+
 				if(targetArea == getCurrentArea()){
 					screenText[2] = "Good Job! Level Complete";
-					completed = true;
 					if(completedButton == null) {
 						completedButton = new Button(300, 140, 70, 30, this, "Next", 2);
 						platform.addThing(completedButton);
 					}
 					
 				}else{
-					screenText[2] = "Oh no! You should try again.";
+					screenText[2] = "Not quite! Click reset to try again.";
 				}
 			}
 			
@@ -153,8 +172,6 @@ public class Level {
 		screenText[0] = "Target area: " + targetArea;
 		screenText[1] = "You have: " + total;
 	}
-	public void reset(){}
-	public void nextLevel(){}
 	
 	
 	

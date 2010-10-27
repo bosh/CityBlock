@@ -7,8 +7,7 @@ public class SquareShape extends cityblock.RectShape{
 
 	public SquareShape(int hw){
 		super(hw, hw);
-		this.setColor(Color.red);
-		this.setLineColor(Color.red);
+		defaultColor = Color.red;
 	}
 	public static Shape randomize(){
 		Random r = new Random();
