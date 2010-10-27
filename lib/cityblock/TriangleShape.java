@@ -1,5 +1,6 @@
 package cityblock;
 import cityblock.*;
+import game.*;
 import java.awt.*;
 import java.util.*;
 
@@ -33,5 +34,22 @@ public class TriangleShape extends cityblock.Shape{
 		setShape(X, Y, 3);
 	}
 	
-	
+	public game.LineSegment getSingleEdge(String location) {
+		LineSegment[] segments = getLineSegments();
+		LineSegment result = null;
+		for(int i = 0; i < segments.length; i++){
+			LineSegment seg = segments[i];
+			if(location == "left" && seg.isVertical()){
+				if(seg.x1 < x) { result = seg; }
+			} else if(location == "right" && seg.isVertical()){
+				if(seg.x1 > x) { result = seg; }
+			} else if(location == "bottom" && seg.isHorizontal()){
+				if(seg.y1 > y) { result = seg; }
+			} else if(location == "top" && seg.isHorizontal()){
+				if(seg.y1 < y) { result = seg; }
+			}
+		}
+		return result;
+	}
+
 }
