@@ -34,13 +34,16 @@ public class Shape extends Thing {
 		if (!isInStagingArea() && !isInPlayArea()) {
 			returnToStaging();
 		} else {
-			snapToNearest();
-			Shape[] shapes = level.shapes;
-			updateShape();
-			for(int i = 0; i < shapes.length; i++){
-				if (!this.isInStagingArea() && shapes[i].isInPlayArea() && getPlatform().colliding(this, shapes[i])) {
-					returnToStaging();
+			if (snapToNearest()) {
+				Shape[] shapes = level.shapes;
+				updateShape();
+				for(int i = 0; i < shapes.length; i++){
+					if (!this.isInStagingArea() && shapes[i].isInPlayArea() && getPlatform().colliding(this, shapes[i])) {
+						returnToStaging();
+					}
 				}
+			} else {
+				returnToStaging();
 			}
 		}
 
@@ -48,20 +51,22 @@ public class Shape extends Thing {
 		return false;
 	}
 
-	public void snapToNearest(){
+	public boolean snapToNearest(){
+		boolean snapped = false;
 		double snapToDistance = 35;
 		Thing[] closest = findClosest();
 		for(int xy = 0; xy < 2; xy++) {
 			if (closest[xy] != null) {
 				double distance = distanceTo(closest[xy])[xy];
 				if (Math.abs(distance) < snapToDistance) {
-					if(xy == 0 && distance > 0) { setX(getX() - distance + 1); }
-					if(xy == 0 && distance < 0) { setX(getX() - distance - 1); }
-					if(xy == 1 && distance > 0) { setY(getY() - distance + 1); }
-					if(xy == 1 && distance < 0) { setY(getY() - distance - 1); }
+					if(xy == 0 && distance > 0) { setX(getX() - distance + 1); snapped = true; }
+					if(xy == 0 && distance < 0) { setX(getX() - distance - 1); snapped = true; }
+					if(xy == 1 && distance > 0) { setY(getY() - distance + 1); snapped = true; }
+					if(xy == 1 && distance < 0) { setY(getY() - distance - 1); snapped = true; }
 				}
 			}
 		}
+		return snapped;
 	}
 
 	public void returnToStaging(){ //TODO make this target a specific place for objects to come back
