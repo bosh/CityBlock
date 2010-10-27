@@ -64,6 +64,7 @@ public class Shape extends Thing {
 	public void returnToStaging(){
 		setX(getPlatform().getWidth() - 150);
 		setY(getPlatform().getHeight() - 150);
+		System.out.println("x, y = " + getX() + ", " + getY() );
 	}
 
 	public Thing[] findClosest(){
@@ -88,6 +89,9 @@ public class Shape extends Thing {
 	}
 	
 	public void renderOverlay(Graphics g){
+		Font font = new Font("Helvetica", Font.BOLD, 18);
+		g.setFont(font);
+		g.setColor(new Color(85, 85, 85));
 		if(this.isInPlayArea() && !this.held) return;
 		String bottom = ""+ getGameWidth();
 		String side = "" + getGameHeight();
@@ -96,14 +100,8 @@ public class Shape extends Thing {
 		double bottomWidth = Math.abs(bottomEdge.x1 - bottomEdge.x2);
 		double sideHeight = Math.abs(leftEdge.y1 - leftEdge.y2);
 		g.drawString(bottom, (int)(bottomEdge.xMin() + bottomWidth/2), (int)(bottomEdge.yMin() + 20));
-		g.drawString(side, (int)(leftEdge.xMin() - 20), (int)(leftEdge.yMin() + sideHeight/2) );
+		g.drawString(side, (int)(leftEdge.xMin() - 20), (int)(leftEdge.yMin() + 10 + sideHeight/2) );
 		
-	}
-
-	public void moveTowards(game.Thing other, int movementRate){
-		//initial implementation - immediately snaps to
-		// this.setthis.distanceTo(other)
-		//this should move closer to other at a rate of min(this.distanceTo(other), movementRate)
 	}
 
 }
