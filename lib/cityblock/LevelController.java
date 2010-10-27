@@ -58,7 +58,7 @@ public class LevelController {
 		int totalShapes = shapes.length;
 		HashMap totalAreas = new HashMap();
 		
-		int sum = 0;
+		double sum = 0.0;
 		for(int i = 0; i < shapes.length; i++){
 			sum += shapes[i].getArea();
 		}

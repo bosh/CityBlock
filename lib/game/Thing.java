@@ -6,8 +6,8 @@ import java.awt.*;
 public class Thing {
    public boolean held = false;
    protected boolean movable = false; //dont change in this class.
-   Color color = Color.black;
-   Color lineColor = Color.black;
+   protected Color color = Color.black;
+   protected Color lineColor = Color.black;
    protected double X[] = new double[100];
    protected double Y[] = new double[100];
    int n = 0;
@@ -121,6 +121,7 @@ public class Thing {
    }
 
    public boolean mouseDown(int x, int y) {
+			System.out.println("click");
       mx = x;
       my = y;
       this.held = true;

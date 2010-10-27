@@ -30,7 +30,7 @@ public class Platform extends BufferedApplet {
       damage = true;
       selectedThing = null;
       for (int i = things.size() - 1 ; i >= 0 ; i--)
-          if (thing(i).movable && thing(i).contains(x, y)) {
+          if (thing(i).contains(x, y)) {
 	      selectedThing = thing(i);
 	      return thing(i).mouseDown(x, y);
           }
@@ -39,7 +39,7 @@ public class Platform extends BufferedApplet {
 
    public boolean mouseDrag(Event e, int x, int y) {
       damage = true;
-      if (selectedThing != null)
+      if (selectedThing != null && selectedThing.movable)
          selectedThing.mouseDrag(x, y);
       return false;
    }
@@ -116,5 +116,6 @@ public class Platform extends BufferedApplet {
    public int stringWidth(String s, Graphics g) {
       return g.getFontMetrics(g.getFont()).stringWidth(s);
    }
+
 }
 

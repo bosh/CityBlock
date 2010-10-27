@@ -7,7 +7,7 @@ public class Shape extends Thing {
 	int width;
 	int height;
 	Level level;
-	public static int maxDimension = 6;
+	public static int maxDimension = 5;
 	public static int dimMultiplier = 20;
 	
 	public double getArea(){return this.getGameHeight()*this.getGameWidth();}
@@ -29,8 +29,13 @@ public class Shape extends Thing {
 	public Level getLevel() {
 		return this.level;
 	}
+	public void highlight(){
+		setColor(Color.black);
+		setLineColor(Color.black);
+	}
 
 	public boolean mouseUp(int x, int y) {
+		if(isInStagingArea()) return false;
 		if (!isInStagingArea() && !isInPlayArea()) {
 			returnToStaging();
 		} else {
@@ -96,7 +101,7 @@ public class Shape extends Thing {
 	}
 	
 	public void renderOverlay(Graphics g){
-		Font font = new Font("Helvetica", Font.BOLD, 18);
+		Font font = new Font("Helvetica", Font.BOLD, 16);
 		g.setFont(font);
 		g.setColor(new Color(85, 85, 85));
 		if(this.isInPlayArea() && !this.held) return;
@@ -106,8 +111,8 @@ public class Shape extends Thing {
 		LineSegment leftEdge = this.getLeftEdge();
 		double bottomWidth = Math.abs(bottomEdge.x1 - bottomEdge.x2);
 		double sideHeight = Math.abs(leftEdge.y1 - leftEdge.y2);
-		g.drawString(bottom, (int)(bottomEdge.xMin() + bottomWidth/2), (int)(bottomEdge.yMin() + 20));
-		g.drawString(side, (int)(leftEdge.xMin() - 20), (int)(leftEdge.yMin() + 10 + sideHeight/2) );
+		g.drawString(bottom, (int)(bottomEdge.xMin() + bottomWidth/2), (int)(bottomEdge.yMin() + 15));
+		g.drawString(side, (int)(leftEdge.xMin() - 15), (int)(leftEdge.yMin() + 7 + sideHeight/2) );
 		
 	}
 }
