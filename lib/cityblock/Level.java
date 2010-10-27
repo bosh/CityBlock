@@ -16,10 +16,11 @@ public class Level {
 	public Platform platform;
 	public int startTime;
 	public boolean completed = false;
+	
+	SoundController sounds = SoundController.active;
 
 	int action = 0;
-	String[] screenText = new String[]{"", "", ""};
-	
+	String[] screenText = new String[]{"", "", ""};	
 	
 	cityblock.Button button;
 	Button resetButton = null;
@@ -67,6 +68,9 @@ public class Level {
 		total = "";
 		action = 0;
 		nextAction = 0;
+		notePlayed = 0;
+		platform.removeThing(completedButton);
+		completedButton = null;
 		
 	}
 	public void destroy(){
@@ -111,8 +115,6 @@ public class Level {
 			int dasY = 50 + i*25;
 			g.drawString(screenText[i], dasX, dasY);
 		}
-
-		
 		//renders tutorial text until its finished
 		//renders numbers next to the shapes
 	}
@@ -125,7 +127,6 @@ public class Level {
 		
 		return result;
 	}
-	
 	
 	public int getElapsedTime(){return 0;}
 	long nextAction = 0;
@@ -146,7 +147,7 @@ public class Level {
 	}
 
 	String total = "";
-	
+	int notePlayed = 0;
 	private void renderEndLevel(){
 		Date current = new Date();
 		if(nextAction == 0) nextAction = current.getTime()+750;//milliseconds
@@ -158,18 +159,26 @@ public class Level {
 				shapes[action].highlight();
 				if(!total.equals("")) total += " + ";
 				total += shapes[action].getArea();
+				sounds.playNote(notePlayed);
+				notePlayed++;
 				action++;
 			}else{
-				if(!total.contains("=")) total += " = " + getCurrentArea();
+				if(!total.contains("=")) {
+					total += " = " + getCurrentArea();
+
+					}
 				if(targetArea == getCurrentArea()){
 					screenText[2] = "Good Job! Level Complete";
 					if(completedButton == null) {
 						completedButton = new Button(300, 140, 70, 30, this, "Next", 2);
+						sounds.playNote(11);
 						platform.addThing(completedButton);
 					}
 					
 				}else{
+					if(screenText[2].equals("")) sounds.playNote(0);
 					screenText[2] = "Not quite! Click reset to try again.";
+
 				}
 			}
 			
@@ -178,8 +187,4 @@ public class Level {
 		screenText[0] = "Target area: " + targetArea;
 		screenText[1] = "You have: " + total;
 	}
-	
-	
-	
-	
 }
