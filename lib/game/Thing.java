@@ -74,8 +74,8 @@ public class Thing {
       double[] newX = new double[100];
       double[] newY = new double[100];
       for(int i = 0; i < n; i++) {
-         newX[i] = Y[i] - y + x;
-         newY[i] = -(X[i] - x) + y;
+         newX[i] = -(Y[i] - y) + x;
+         newY[i] = (X[i] - x) + y;
       }
       X = newX;
       Y = newY;
