@@ -22,7 +22,6 @@ public class Shape extends Thing {
 	
 	//we should not be using ACTUAL width and height for the numbers we display cus they'll be far too high.
 	public Shape(int w, int h){
-
 		this.width = w;
 		this.height = h;
 		this.movable = true;
@@ -42,7 +41,7 @@ public class Shape extends Thing {
 
 	public boolean mouseUp(int x, int y) {
 		if(isInStagingArea()){
-			rotate();
+			if (!dragged) { rotate(); }
 			return false;
 		}
 		if (!isInStagingArea() && !isInPlayArea()) {
@@ -60,7 +59,6 @@ public class Shape extends Thing {
 				returnToStaging();
 			}
 		}
-
 		this.held = false;
 		return false;
 	}

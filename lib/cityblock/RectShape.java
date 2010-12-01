@@ -19,7 +19,6 @@ public class RectShape extends cityblock.Shape {
 	}
 	
 	
-	
 	public void setup(int x, int y){
 	  this.x = x + width / 2;
       this.y = y + height / 2;

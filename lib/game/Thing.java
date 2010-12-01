@@ -10,6 +10,7 @@ public class Thing {
    protected Color lineColor = Color.black;
    protected double X[] = new double[100];
    protected double Y[] = new double[100];
+   public boolean dragged;
    int n = 0;
 
    int IX[] = new int[100];
@@ -138,14 +139,16 @@ public class Thing {
    }
 
    public boolean mouseDown(int x, int y) {
-			System.out.println("click");
+      System.out.println("click");
       mx = x;
       my = y;
+      dragged = false;
       this.held = true;
       return false;
    }
 
    public boolean mouseDrag(int x, int y) {
+      dragged = true;
       setX(this.x + x - mx);
       setY(this.y + y - my);
       mx = x;
@@ -155,6 +158,7 @@ public class Thing {
 
    public boolean mouseUp(int x, int y) {
       this.held = false;
+      dragged = false;
       return false;
    }
 

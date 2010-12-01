@@ -8,9 +8,10 @@ public class CityBlockGame extends Platform {
 	LevelSpec[] _levelSpecs;
 	int current = 0;
 	
+	
 	public void setup(){
 		//_controller = new LevelController();
-		
+		Platform.platform = this;
 		//this stuff is just setting up the staging area on the right side of the screen.
 		int bWidth = this.getWidth();
 		int bHeight = this.getHeight();
