@@ -2,9 +2,9 @@ package cityblock;
 
 import game.*;
 import java.awt.*;
+import java.awt.image.*;
 
-
-public class ImageThing extends Thing{
+public class ImageThing extends Thing implements ImageObserver{
 	
 	int mWidth, mHeight;
 	Image mImage;
@@ -15,8 +15,7 @@ public class ImageThing extends Thing{
 		mHeight = height;
 	}
 	public void update(Graphics g){
-		g.drawImage()
-		g.drawImage(img, 0, 0, mWidth, mHeight, this);
+		g.drawImage(mImage, 0, 0, mWidth, mHeight, this);
 		super.update(g);
 	}
 	public boolean imageUpdate(Image img, int a, int b, int c, int d, int e){

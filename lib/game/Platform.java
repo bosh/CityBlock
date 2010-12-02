@@ -10,7 +10,10 @@ import javax.sound.sampled.*;
 import java.io.*;
 import java.net.*;
 
+
+
 public class Platform extends BufferedApplet {
+	public static boolean DEBUGGING = true;
    int w = 0, h = 0;
    Color bgColor = Color.white;
    Thing selectedThing = null;
@@ -123,8 +126,8 @@ public class Platform extends BufferedApplet {
    }
 
 	public URL getBase(){
-		String debugging = System.getenv("CITYBLOCK_DEBUG_MODE");
-		if(debugging == "true") return getCodeBase();
+
+		if(Platform.DEBUGGING) return getCodeBase();
 		return getDocumentBase();
 	}
 

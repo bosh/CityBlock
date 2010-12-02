@@ -2,72 +2,26 @@ import game.*;
 import java.awt.*;
 import cityblock.*;
 public class CityBlockGame extends Platform {
-	Level _currentLevel = null;
-	boolean _showMenu;
-	LevelController _controller;
-	LevelSpec[] _levelSpecs;
-	int current = 0;
 	
+	SceneManager mManager;
 	
 	public void setup(){
 		//_controller = new LevelController();
 		Platform.platform = this;
 		//this stuff is just setting up the staging area on the right side of the screen.
-		int bWidth = this.getWidth();
-		int bHeight = this.getHeight();
-		
-		playArea = new StaticRect(0, 0, (2*bWidth)/3, bHeight);
-		playArea.setColor(Color.white);
-		playArea.setLineColor(Color.white);
-		addThing(playArea);
-
-		stagingArea = new StaticRect(bWidth - bWidth/3, 0, bWidth/3, bHeight);
-		stagingArea.setColor(new Color(240,255,240));
-		stagingArea.setLineColor(Color.darkGray);
-		addThing(stagingArea);
-
-		//ths is setting up the first level, but hacked at the moment for testing
-		_controller = new LevelController();
-		//_currentLevel = _controller.getLevel(1);
-		nextLevel();
+		IScene menu = new MenuScene();
+		IScene game = new GameScene(menu);
+		menu.addChild(game);
+		mManager = new SceneManager(menu);
 	}
 	
 	public void update(){
-		if(!_currentLevel.completed)
-			{_currentLevel.update();}
-		else{
-			nextLevel();
-		}
-		SoundController.active.housekeeping();
-		
+		IScene current = mManager.getCurrentScene();
+		current.update();
 	}
 	
-	public void makeLevelSpecs(){
-
-	}
-	public void nextLevel(){
-		if(_currentLevel != null){
-			_currentLevel.destroy();
-		}
-		_currentLevel = _controller.getLevel(current);
-		current++;
-		_currentLevel.start(this);
-	}
 
 	public void overlay(Graphics g) {
-		_currentLevel.renderOverlay(g);
+		mManager.getCurrentScene().updateOverlay(g);
 	}
-
-	private Level generateFakeLevel(){
-		cityblock.Shape[] shapes = new cityblock.Shape[3];
-		shapes[0] = new RectShape(30, 20);
-		shapes[1] = new TriangleShape(50, 70);
-		shapes[2] = new SquareShape(100);
-		Level result = new Level(shapes);
-		result.targetArea = 6;
-		
-		
-		return result;
-	}
-
 }
