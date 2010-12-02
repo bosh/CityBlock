@@ -17,6 +17,7 @@ public class Platform extends BufferedApplet {
    ArrayList things = new ArrayList();
    public StaticRect stagingArea;
    public StaticRect playArea;
+   public static Platform platform;
 
    // GET THE iTH THING IN THIS PLATFORM
    public Thing thing(int i) { return ((Thing)things.get(i)); }
