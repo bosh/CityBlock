@@ -122,5 +122,19 @@ public class Platform extends BufferedApplet {
       return g.getFontMetrics(g.getFont()).stringWidth(s);
    }
 
+	public URL getBase(){
+		String debugging = System.getenv("CITYBLOCK_DEBUG_MODE");
+		if(debugging == "true") return getCodeBase();
+		return getDocumentBase();
+	}
+
+
+//STATIC
+   public static int getStringWidth(String s, Graphics g) {
+      return g.getFontMetrics(g.getFont()).stringWidth(s);
+   }
+
+
+
 }
 

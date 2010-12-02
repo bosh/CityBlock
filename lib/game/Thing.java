@@ -7,6 +7,7 @@ public class Thing {
    public boolean held = false;
    protected boolean movable = false; //dont change in this class.
    protected Color color = Color.black;
+	protected boolean mPolygon = true;
    protected Color lineColor = Color.black;
    protected double X[] = new double[100];
    protected double Y[] = new double[100];
@@ -50,9 +51,11 @@ public class Thing {
    public void update(Graphics g) {
       updateShape();
       g.setColor(color);
-      g.fillPolygon(polygon);
-      g.setColor(lineColor);
-      g.drawPolygon(polygon);
+		if(this.mPolygon){
+	      g.fillPolygon(polygon);
+	      g.setColor(lineColor);
+	      g.drawPolygon(polygon);
+		}
    }
 
    public double[] distanceTo(Thing other){ //Assumes that there will always be parallel lines between things
