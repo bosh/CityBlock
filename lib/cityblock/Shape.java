@@ -4,8 +4,6 @@ import game.*;
 import java.awt.*;
 
 public class Shape extends Thing {
-	int width;
-	int height;
 	Level level;
 	public static int maxDimension = 5;
 	public static int dimMultiplier = 20;
@@ -122,8 +120,8 @@ public class Shape extends Thing {
 			g.drawString(bottom, (int)(bottomEdge.xMin() + bottomWidth/2), (int)(bottomEdge.yMin() + 15));
 			g.drawString(side, (int)(leftEdge.xMin() - 15), (int)(leftEdge.yMin() + 7 + sideHeight/2) );
 		} else if (rotation == 90 || rotation == 270) {
-			g.drawString(side, (int)(bottomEdge.xMin() + bottomWidth/2), (int)(bottomEdge.yMin() + 15));
-			g.drawString(bottom, (int)(leftEdge.xMin() - 15), (int)(leftEdge.yMin() + 7 + sideHeight/2) );
+			g.drawString(bottom, (int)(bottomEdge.xMin() + bottomWidth/2), (int)(bottomEdge.yMin() + 15));
+			g.drawString(side, (int)(leftEdge.xMin() - 15), (int)(leftEdge.yMin() + 7 + sideHeight/2) );
 		}
 	}
 }

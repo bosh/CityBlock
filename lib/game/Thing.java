@@ -4,6 +4,8 @@ package game;
 import java.awt.*;
 
 public class Thing {
+   public int width;
+   public int height;
    public boolean held = false;
    protected boolean movable = false; //dont change in this class.
    protected Color color = Color.black;
@@ -77,14 +79,19 @@ public class Thing {
    public void rotate() { //90degrees clockwise
       double[] newX = new double[100];
       double[] newY = new double[100];
-      for(int i = 0; i < n; i++) {
+      for(int i = 0; i < n; i++) { //rotate all points
          newX[i] = -(Y[i] - y) + x;
          newY[i] = (X[i] - x) + y;
       }
       X = newX;
       Y = newY;
-      rotation = rotation + 90;
-      if (rotation >= 360){ rotation = rotation - 360; }
+      rotation = rotation + 90; //rotate 90 degrees CW
+
+      int switcher = width; //switch height and weight
+      width = height;
+      height = switcher;
+
+      if (rotation >= 360){ rotation = rotation - 360; } //handle overflow
       needToUpdateShape = true;
    }
 
