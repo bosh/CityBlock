@@ -34,5 +34,4 @@ public class RectShape extends cityblock.Shape{
 		Y[3] = y + height;
 		setShape(X, Y, 4);
 	}
-
 }

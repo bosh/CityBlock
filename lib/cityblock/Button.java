@@ -19,6 +19,7 @@ public class Button extends StaticRect {
 		color = Color.lightGray;
 		lineColor = Color.gray;
 	}
+
 	public void renderOverlay(Graphics g){
 		Font font = new Font("Helvetica", Font.BOLD, 16);
 		g.setFont(font);
@@ -28,18 +29,17 @@ public class Button extends StaticRect {
 		double yCord = this.getY() + 5;// - (double)height/2;
 		g.drawString(s, (int)xCord, (int)yCord );
 	}
-	
-   public boolean mouseDown(int x, int y) {
+
+	public boolean mouseDown(int x, int y) {
 		System.out.println("click");
 		level.submit(this.type);
 		setColor(Color.gray);
 		return false;
 	}
+
 	public boolean mouseUp(int x, int y){
 		System.out.println("click-up");		
 		setColor(Color.lightGray);
 		return false;
 	}
-	
-	
 }

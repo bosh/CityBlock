@@ -1,4 +1,5 @@
 package cityblock;
+
 import cityblock.*;
 import game.*;
 import java.awt.*;
@@ -16,12 +17,11 @@ public class Level {
 	public Platform platform;
 	public int startTime;
 	public boolean completed = false;
-	
 	SoundController sounds = SoundController.active;
 
 	int action = 0;
 	String[] screenText = new String[]{"", "", ""};	
-	
+
 	cityblock.Button button;
 	Button resetButton = null;
 	Button completedButton = null;
@@ -33,9 +33,9 @@ public class Level {
 			shapes[i].setLevel(this);
 		}
 	}
-	
+
 	public void start(Platform p){
-		platform = p;		
+		platform = p;
 		buildingBase = new StaticRect(p.getWidth()/3 - 150, p.getHeight() - 30, 300, 30 );
 		buildingBase.setColor(java.awt.Color.gray);
 		button = new Button(p.getWidth()*2/3 - 80, p.getHeight() - 35, 70, 30, this, "Submit", 0);
@@ -50,8 +50,9 @@ public class Level {
 		}
 		resetShapes(p);
 	}
+
 	public void resetShapes(Platform p){
-		int offset = 20;		
+		int offset = 20;
 		for(int i = 0; i < this.shapes.length; i++){
 			Shape s = shapes[i];
 			if(i > 0) offset += shapes[i-1].height + 20;
@@ -59,8 +60,8 @@ public class Level {
 			s.setY(offset + s.height/2);
 			s.reset();
 		}
-		
 	}
+
 	public void reset(){
 		resetShapes(platform);
 		doEndLevel = false;
@@ -71,8 +72,8 @@ public class Level {
 		notePlayed = 0;
 		if(completedButton != null) platform.removeThing(completedButton);
 		completedButton = null;
-		
 	}
+
 	public void destroy(){
 		for(int i = 0; i < shapes.length; i++){
 			platform.removeThing(shapes[i]);
@@ -87,12 +88,12 @@ public class Level {
 		if(doEndLevel){
 			renderEndLevel();
 		}
-		
 		if(lastTime !=getCurrentArea()){
-		System.out.println("current area :" + getCurrentArea() + " target: " + targetArea);
-		lastTime = getCurrentArea();
+			System.out.println("current area :" + getCurrentArea() + " target: " + targetArea);
+			lastTime = getCurrentArea();
 		}
 	}
+
 	public void renderOverlay(java.awt.Graphics g){
 		g.setColor(new Color(85, 85, 85));
 		String txt = "Target Area: " + targetArea;
@@ -118,17 +119,16 @@ public class Level {
 		//renders tutorial text until its finished
 		//renders numbers next to the shapes
 	}
-	
+
 	public double getCurrentArea(){
 		double result = 0.0;
 		for(int i = 0; i < shapes.length; i++){
 			if(shapes[i].isInPlayArea()) result += shapes[i].getArea();
 		}
-		
 		return result;
 	}
-	
-	public int getElapsedTime(){return 0;}
+
+	public int getElapsedTime(){ return 0; }
 	long nextAction = 0;
 
 	public void submit(int type){
@@ -151,38 +151,33 @@ public class Level {
 	private void renderEndLevel(){
 		Date current = new Date();
 		if(nextAction == 0) nextAction = current.getTime()+750;//milliseconds
-		
+
 		if(current.getTime() > nextAction){
 			nextAction = current.getTime()+750;
 			while(action < shapes.length && !shapes[action].isInPlayArea()) action++;
 			if(action < shapes.length){
 				shapes[action].highlight();
-				if(!total.equals("")) total += " + ";
+				if( !total.equals("") ){ total += " + "; }
 				total += shapes[action].getArea();
 				sounds.playNote(notePlayed);
 				notePlayed++;
 				action++;
-			}else{
-				if(!total.contains("=")) {
+			} else {
+				if (!total.contains("=") ){
 					total += " = " + getCurrentArea();
-
-					}
-				if(targetArea == getCurrentArea()){
+				}
+				if (targetArea == getCurrentArea()){
 					screenText[2] = "Good Job! Level Complete";
-					if(completedButton == null) {
+					if ( completedButton == null ) {
 						completedButton = new Button(300, 140, 70, 30, this, "Next", 2);
 						sounds.playNote(11);
 						platform.addThing(completedButton);
 					}
-					
-				}else{
-					if(screenText[2].equals("")) sounds.playNote(0);
+				} else {
+					if( screenText[2].equals("") ){  sounds.playNote(0); }
 					screenText[2] = "Not quite! Click reset to try again.";
-
 				}
 			}
-			
-			
 		}
 		screenText[0] = "Target area: " + targetArea;
 		screenText[1] = "You have: " + total;

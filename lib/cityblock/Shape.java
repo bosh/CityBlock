@@ -15,11 +15,11 @@ public class Shape extends Thing implements ImageObserver{
 		setColor(defaultColor);
 		setLineColor(defaultColor);
 	}
-	
+
 	public double getArea(){return this.getGameHeight()*this.getGameWidth();}
 	public int getGameHeight(){return height / dimMultiplier;}
 	public int getGameWidth(){return width / dimMultiplier;}
-	
+
 	//we should not be using ACTUAL width and height for the numbers we display cus they'll be far too high.
 	public Shape(int w, int h, String imgpath, Color color){
 		this.width = w;
@@ -137,5 +137,4 @@ public class Shape extends Thing implements ImageObserver{
 	public boolean imageUpdate(Image img, int x, int y, int width, int height, int fudge){
 		return true;
 	}
-
 }
