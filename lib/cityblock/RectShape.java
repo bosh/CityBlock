@@ -2,20 +2,14 @@ package cityblock;
 import java.awt.*;
 import game.*;
 import java.util.*;
-import java.awt.image.*;
 
-public class RectShape extends cityblock.Shape implements ImageObserver{
-	public Image img;
-	
-	public RectShape(int w, int h){
-		super(w, h);
-		defaultColor = Color.blue;
-		img = Platform.platform.getImage(Platform.platform.getCodeBase(), "rectangle.png");
+public class RectShape extends cityblock.Shape{
+	public RectShape(int w, int h, String imgpath, Color color){
+		super(w, h, imgpath, color);
 	}
 
-	public void update(Graphics g) {
-		super.update(g);
-		g.drawImage(img, (int) getX() - width/2, (int) getY() - height/2, width, height, this);
+	public RectShape(int w, int h){
+		this(w, h, "rectangle.png", Color.blue);
 	}
 
 	public static Shape randomize(){
@@ -41,7 +35,4 @@ public class RectShape extends cityblock.Shape implements ImageObserver{
 		setShape(X, Y, 4);
 	}
 
-	public boolean imageUpdate(Image img, int x, int y, int width, int height, int fudge){
-		return true;
-	}
 }

@@ -7,9 +7,9 @@ import java.util.*;
 public class TriangleShape extends cityblock.Shape{
 	//simple at first, just makes right-angle triangles only
 	public TriangleShape(int w, int h){
-		super(w, h);
-		defaultColor = Color.green;
+		super(w, h, "right-triangle-lower-left.png", Color.green);
 	}
+
 	public static Shape randomize(){
 		Random r = new Random();
 		int dimension = cityblock.Shape.dimMultiplier * (r.nextInt(cityblock.Shape.maxDimension) + 1); //between 1 and maxDimension
@@ -17,13 +17,14 @@ public class TriangleShape extends cityblock.Shape{
 		TriangleShape result = new TriangleShape(dimension, dimension2);
 		return result;
 	}
+
 	public double getArea(){
 		return this.getGameHeight()*((double)this.getGameWidth()*0.5);
 	}
-	
+
 	public void setup(int x, int y){
 		this.x = x + width / 2;
-      	this.y = y + height / 2;
+		this.y = y + height / 2;
 		X[0] = x;
 		Y[0] = y;
 		Y[1] = y + this.height;
@@ -33,7 +34,7 @@ public class TriangleShape extends cityblock.Shape{
 		//this should make a triangle
 		setShape(X, Y, 3);
 	}
-	
+
 	public game.LineSegment getSingleEdge(String location) {
 		LineSegment[] segments = getLineSegments();
 		LineSegment result = null;
