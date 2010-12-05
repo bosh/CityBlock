@@ -15,20 +15,23 @@ public class Level {
 	public Tutorial tutorial;
 	public StaticRect buildingBase;
 	public Platform platform;
-	public int startTime;
 	public boolean completed = false;
+	public long startTime;
+	public boolean frozen = false;
 	SoundController sounds = SoundController.active;
 
 	int action = 0;
-	String[] screenText = new String[]{"", "", ""};	
+	String[] screenText = new String[]{"", "", ""};
+	String[] goalText;
 
 	cityblock.Button button;
 	Button resetButton = null;
 	Button completedButton = null;
 	boolean doEndLevel = false;
 	
-	public Level(Shape[] shapes){
+	public Level(Shape[] shapes, Goal[] goals){
 		this.shapes = shapes;
+		this.goals = goals;
 		for(int i = 0; i < shapes.length; i++) {
 			shapes[i].setLevel(this);
 		}
@@ -43,6 +46,7 @@ public class Level {
 		p.addThing(resetButton);
 		p.addThing(button);
 		p.addThing(buildingBase);
+		startTime = System.currentTimeMillis();
 
 		for(int i = 0; i < this.shapes.length; i++){
 			shapes[i].setup(0, 0);
@@ -111,24 +115,53 @@ public class Level {
 		Font font = new Font("Helvetica", Font.BOLD, 26);
 		g.setColor(Color.darkGray);
 		g.setFont(font);
+
+		int currX = 100;
+		int currY = 50;
 		for(int i = 0; i < screenText.length; i++){
-			int dasX = 100;
-			int dasY = 50 + i*25;
-			g.drawString(screenText[i], dasX, dasY);
+			g.drawString(screenText[i], currX, currY);
+			currY += 25;
+		}
+		currY += 25;
+		if ( frozen && goalText != null ){
+			for(int i = 0; i < goalText.length; i++){
+				g.drawString(goalText[i], currX, currY);
+				currY += 25;
+			}
 		}
 		//renders tutorial text until its finished
 		//renders numbers next to the shapes
 	}
 
+	public Shape[] getShapesInPlay(){
+		Shape[] inPlay = new Shape[100];
+		int next = 0;
+		for(int i = 0; i < shapes.length; i++){
+			if(shapes[i].isInPlayArea()){
+				inPlay[next] = shapes[i];
+				next++;
+			}
+		}
+		Shape[] results = new Shape[next];
+		for(int i = 0; i < results.length; i++){
+			results[i] = inPlay[i];
+		}
+		return results;
+	}
+
 	public double getCurrentArea(){
 		double result = 0.0;
-		for(int i = 0; i < shapes.length; i++){
-			if(shapes[i].isInPlayArea()) result += shapes[i].getArea();
+		Shape[] inPlay = getShapesInPlay();
+		for(int i = 0; i < inPlay.length; i++){
+			result += inPlay[i].getArea();
 		}
 		return result;
 	}
 
-	public int getElapsedTime(){ return 0; }
+	public long getElapsedMillis(){
+		return System.currentTimeMillis() - startTime;
+	}
+
 	long nextAction = 0;
 
 	public void submit(int type){
@@ -144,6 +177,11 @@ public class Level {
 				completed = true;
 				return;
 		}
+	}
+
+	public void freezeLevel(){
+		//Todo
+		frozen = true;
 	}
 
 	String total = "";
@@ -173,6 +211,17 @@ public class Level {
 						sounds.playNote(11);
 						platform.addThing(completedButton);
 					}
+					if ( frozen ){
+						long millisTaken = getElapsedMillis();
+						goalText = new String[goals.length];
+						int[] goalScores = new int[goals.length];
+						for(int i = 0; i < goals.length; i++){
+							goals[i].evaluate(millisTaken, getShapesInPlay());
+							goalText[i] = goals[i].text;
+							goalScores[i] = goals[i].score;
+						}
+					}
+					freezeLevel();
 				} else {
 					if( screenText[2].equals("") ){  sounds.playNote(0); }
 					screenText[2] = "Not quite! Click reset to try again.";

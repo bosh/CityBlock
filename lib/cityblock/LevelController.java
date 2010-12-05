@@ -7,20 +7,18 @@ import cityblock.*;
 public class LevelController {
 	//private, dont make public!!
 	LevelSpec[] _levels;
-	int _top;
 
 	public LevelController(){
 		_levels = new LevelSpec[4];
-		_levels[0] = new LevelSpec(3, true, true, false);
-		_levels[1] = new LevelSpec(6, true, true, false);
-		_levels[2] = new LevelSpec(4, false, true, true);
-		_levels[3] = new LevelSpec(6, true, true, true);
+		_levels[0] = new LevelSpec(3, true, true, false, new String[] {"square", "minute"});
+		_levels[1] = new LevelSpec(6, true, true, false, new String[] {"rectangle", "minute"});
+		_levels[2] = new LevelSpec(4, false, true, true, new String[] {"triangle", "minute"});
+		_levels[3] = new LevelSpec(6, true, true, true, new String[]  {"square", "triangle", "minute"});
 		//read in levels file and create hash
-		_top = 100;
 	}
 
 	public Level getLevel(int i){
-		if(i > _top-1) return null;
+		if(i >= _levels.length){ return null; }
 		return generate(_levels[i]);
 	}
 
@@ -51,7 +49,13 @@ public class LevelController {
 				shapesIndex++;
 			}
 		}
-		Level result = new Level(shapes);
+
+		Goal[] goals = new Goal[spec.goalTypes.length];
+		for(int i = 0; i < spec.goalTypes.length; i++){
+			goals[i] = new Goal(spec.goalTypes[i]);
+		}
+
+		Level result = new Level(shapes, goals);
 
 		int totalShapes = shapes.length;
 		HashMap totalAreas = new HashMap();

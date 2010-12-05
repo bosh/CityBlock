@@ -32,9 +32,8 @@ public class GameScene implements IScene{
 		stagingArea.setLineColor(Color.darkGray);
 		Platform.platform.addThing(stagingArea);
 
-		//ths is setting up the first level, but hacked at the moment for testing
+		//this is setting up the first level, but hacked at the moment for testing
 		_controller = new LevelController();
-		//_currentLevel = _controller.getLevel(1);
 		nextLevel();
 	}
 
@@ -55,7 +54,7 @@ public class GameScene implements IScene{
 	}
 
 	public void update(){
-		if(!_currentLevel.completed) {
+		if(_currentLevel != null && !_currentLevel.completed) {
 			_currentLevel.update();
 		} else {
 			nextLevel();
