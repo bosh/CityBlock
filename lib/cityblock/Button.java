@@ -9,6 +9,7 @@ public class Button extends StaticRect {
 	Level level;
 	String text;
 	int type;
+
 	public Button(double x, double y, double w, double h, cityblock.Level level, String txt, int typ){
 		super(x, y, w, h);
 		this.level = level;
@@ -31,14 +32,14 @@ public class Button extends StaticRect {
 	}
 
 	public boolean mouseDown(int x, int y) {
-		System.out.println("click");
+		System.out.println("click on " + text );
 		level.submit(this.type);
 		setColor(Color.gray);
 		return false;
 	}
 
 	public boolean mouseUp(int x, int y){
-		System.out.println("click-up");		
+		System.out.println("click-up on " + text);
 		setColor(Color.lightGray);
 		return false;
 	}

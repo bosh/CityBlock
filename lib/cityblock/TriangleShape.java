@@ -6,11 +6,16 @@ import java.awt.*;
 import java.util.*;
 
 public class TriangleShape extends cityblock.Shape{
-	//simple at first, just makes right-angle triangles only
+	public static Image[] rotatedImages = new Image[] {
+		Platform.platform.getImage(Platform.platform.getBase(), "triangle-lower-left.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "triangle-upper-left.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "triangle-upper-right.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "triangle-lower-right.png")
+	};
+
 	public TriangleShape(int w, int h){
 		super(w, h, Color.green);
 		name = "triangle";
-		this.rotatedImages = new String[] {"triangle-lower-left.png", "triangle-upper-left.png", "triangle-upper-right.png", "triangle-lower-right.png"};
 	}
 
 	public static Shape randomize(){
@@ -19,6 +24,10 @@ public class TriangleShape extends cityblock.Shape{
 		int dimension2 = cityblock.Shape.dimMultiplier * (r.nextInt(cityblock.Shape.maxDimension) + 1); //between 1 and maxDimension
 		TriangleShape result = new TriangleShape(dimension, dimension2);
 		return result;
+	}
+
+	public Image getRotatedImage(){
+		return rotatedImages[(int)(rotation/90)];
 	}
 
 	public double getArea(){

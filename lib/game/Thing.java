@@ -92,6 +92,7 @@ public class Thing {
       height = switcher;
 
       if (rotation >= 360){ rotation = rotation - 360; } //handle overflow
+      System.out.println("rotate - new direction:" + rotation);
       needToUpdateShape = true;
    }
 

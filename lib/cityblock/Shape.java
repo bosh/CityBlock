@@ -1,4 +1,5 @@
 package cityblock;
+
 import java.util.*;
 import game.*;
 import java.awt.*;
@@ -7,7 +8,7 @@ import java.awt.image.*;
 public class Shape extends Thing implements ImageObserver{
 	public String name;
 	Level level;
-	public String[] rotatedImages;
+	public static Image[] rotatedImages;
 	public static int maxDimension = 5;
 	public static int dimMultiplier = 20;
 	protected Color defaultColor = Color.gray;
@@ -37,6 +38,7 @@ public class Shape extends Thing implements ImageObserver{
 	public Level getLevel() {
 		return this.level;
 	}
+
 	public void highlight(){
 		setColor(Color.black);
 		setLineColor(Color.black);
@@ -81,6 +83,7 @@ public class Shape extends Thing implements ImageObserver{
 				}
 			}
 		}
+		if( snapped ){ System.out.println("snapped"); }
 		return snapped;
 	}
 
@@ -137,8 +140,7 @@ public class Shape extends Thing implements ImageObserver{
 	}
 
 	public Image getRotatedImage(){
-		String imgpath = rotatedImages[(int)(rotation/90)];
-		return Platform.platform.getImage(Platform.platform.getCodeBase(), imgpath);
+		return rotatedImages[(int)(rotation/90)];
 	}
 
 	public boolean imageUpdate(Image img, int x, int y, int width, int height, int fudge){

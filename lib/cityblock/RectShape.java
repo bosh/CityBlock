@@ -5,6 +5,13 @@ import game.*;
 import java.util.*;
 
 public class RectShape extends cityblock.Shape{
+	public static Image[] rotatedImages = new Image[] {
+		Platform.platform.getImage(Platform.platform.getBase(), "rectangle-up.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "rectangle-right.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "rectangle-down.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "rectangle-left.png")
+	};
+
 	public RectShape(int w, int h, Color color){
 		super(w, h, color);
 	}
@@ -12,7 +19,6 @@ public class RectShape extends cityblock.Shape{
 	public RectShape(int w, int h){
 		this(w, h, Color.blue);
 		name = "rectangle";
-		rotatedImages = new String[] {"rectangle-up.png", "rectangle-right.png", "rectangle-down.png", "rectangle-left.png"};
 	}
 
 	public static Shape randomize(){
@@ -22,6 +28,10 @@ public class RectShape extends cityblock.Shape{
 		while(dimension == dimension2) dimension2 = cityblock.Shape.dimMultiplier * (r.nextInt(cityblock.Shape.maxDimension) + 1); //between 1 and maxDimension
 		RectShape result = new RectShape(dimension, dimension2);
 		return result;
+	}
+
+	public Image getRotatedImage(){
+		return rotatedImages[(int)(rotation/90)];
 	}
 
 	public void setup(int x, int y){

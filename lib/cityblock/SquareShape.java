@@ -6,10 +6,20 @@ import java.awt.*;
 import java.util.*;
 
 public class SquareShape extends cityblock.RectShape{
+	public static Image[] rotatedImages = new Image[] {
+		Platform.platform.getImage(Platform.platform.getBase(), "square-up.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "square-right.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "square-down.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "square-left.png")
+	};
+
 	public SquareShape(int hw){
 		super(hw, hw, Color.red);
 		name = "square";
-		this.rotatedImages = new String[] {"square-up.png", "square-right.png", "square-down.png", "square-left.png"};
+	}
+
+	public Image getRotatedImage(){
+		return rotatedImages[(int)(rotation/90)];
 	}
 
 	public static Shape randomize(){
