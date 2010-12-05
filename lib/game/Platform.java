@@ -18,8 +18,6 @@ public class Platform extends BufferedApplet {
    Color bgColor = Color.white;
    Thing selectedThing = null;
    ArrayList things = new ArrayList();
-   public StaticRect stagingArea;
-   public StaticRect playArea;
    public static Platform platform;
 
    // GET THE iTH THING IN THIS PLATFORM
@@ -99,7 +97,8 @@ public class Platform extends BufferedApplet {
    }
 
 	public void removeThing(Thing thing){
-		things.remove(things.indexOf(thing));
+		
+		if(things.indexOf(thing) != -1) things.remove(things.indexOf(thing));
 	}
 
    // HANDLE PLAYING AN AUDIO CLIP, WHETHER FROM A URL OR A LOCAL FILE

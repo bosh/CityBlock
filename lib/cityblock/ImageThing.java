@@ -10,6 +10,7 @@ public class ImageThing extends Thing implements ImageObserver{
 
 	public ImageThing(String path, int width, int height){
 		this.mPolygon = false;
+		this.movable = false;
 		mImage = Platform.platform.getImage(Platform.platform.getBase(), path);
 		mWidth = width;
 		mHeight = height;
