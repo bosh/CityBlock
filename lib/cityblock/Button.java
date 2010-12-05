@@ -23,7 +23,7 @@ public class Button extends MenuThing {
 	}
 
 	public boolean mouseDown(int x, int y) {
-		System.out.println("click on " + text );
+		System.out.println("click");
 		level.submit(this.type);
 		return false;
 	}
