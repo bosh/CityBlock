@@ -8,8 +8,9 @@ import java.util.*;
 public class TriangleShape extends cityblock.Shape{
 	//simple at first, just makes right-angle triangles only
 	public TriangleShape(int w, int h){
-		super(w, h, "right-triangle-lower-left.png", Color.green);
+		super(w, h, Color.green);
 		name = "triangle";
+		this.rotatedImages = new String[] {"triangle-lower-left.png", "triangle-upper-left.png", "triangle-upper-right.png", "triangle-lower-right.png"};
 	}
 
 	public static Shape randomize(){

@@ -7,7 +7,7 @@ import java.awt.image.*;
 public class Shape extends Thing implements ImageObserver{
 	public String name;
 	Level level;
-	public Image img;
+	public String[] rotatedImages;
 	public static int maxDimension = 5;
 	public static int dimMultiplier = 20;
 	protected Color defaultColor = Color.gray;
@@ -22,10 +22,10 @@ public class Shape extends Thing implements ImageObserver{
 	public int getGameWidth(){return width / dimMultiplier;}
 
 	//we should not be using ACTUAL width and height for the numbers we display cus they'll be far too high.
-	public Shape(int w, int h, String imgpath, Color color){
+	public Shape(int w, int h, Color color){
+		this.mPolygon = false;
 		this.width = w;
 		this.height = h;
-		this.img = Platform.platform.getImage(Platform.platform.getCodeBase(), imgpath); 
 		this.defaultColor = color;
 		this.movable = true;
 	}
@@ -132,7 +132,13 @@ public class Shape extends Thing implements ImageObserver{
 
 	public void update(Graphics g) {
 		super.update(g);
-		g.drawImage(img, (int) getX() - width/2, (int) getY() - height/2, width, height, this);
+		Image img = getRotatedImage();
+		g.drawImage(img, (int) getX() - width/2, (int) getY() - height/2, width+1, height+1, this);
+	}
+
+	public Image getRotatedImage(){
+		String imgpath = rotatedImages[(int)(rotation/90)];
+		return Platform.platform.getImage(Platform.platform.getCodeBase(), imgpath);
 	}
 
 	public boolean imageUpdate(Image img, int x, int y, int width, int height, int fudge){

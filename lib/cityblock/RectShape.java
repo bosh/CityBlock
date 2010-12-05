@@ -5,13 +5,14 @@ import game.*;
 import java.util.*;
 
 public class RectShape extends cityblock.Shape{
-	public RectShape(int w, int h, String imgpath, Color color){
-		super(w, h, imgpath, color);
-		name = "rectangle";
+	public RectShape(int w, int h, Color color){
+		super(w, h, color);
 	}
 
 	public RectShape(int w, int h){
-		this(w, h, "rectangle.png", Color.blue);
+		this(w, h, Color.blue);
+		name = "rectangle";
+		rotatedImages = new String[] {"rectangle-up.png", "rectangle-right.png", "rectangle-down.png", "rectangle-left.png"};
 	}
 
 	public static Shape randomize(){
