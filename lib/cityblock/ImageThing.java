@@ -5,19 +5,25 @@ import java.awt.*;
 import java.awt.image.*;
 
 public class ImageThing extends Thing implements ImageObserver{
-	int mWidth, mHeight;
+	int mWidth, mHeight, mX, mY;
 	Image mImage;
 
 	public ImageThing(String path, int width, int height){
+		this(path, width, height, 0, 0);
+	}
+	
+	public ImageThing(String path, int width, int height, int x, int y){
 		this.mPolygon = false;
 		this.movable = false;
 		mImage = Platform.platform.getImage(Platform.platform.getBase(), path);
 		mWidth = width;
-		mHeight = height;
+		mHeight = height;		
+		mX = x;
+		mY = y;
 	}
 
 	public void update(Graphics g){
-		g.drawImage(mImage, 0, 0, mWidth, mHeight, this);
+		g.drawImage(mImage, mX, mY, mWidth, mHeight, this);
 		super.update(g);
 	}
 
