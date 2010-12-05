@@ -9,7 +9,7 @@ public class SquareShape extends cityblock.RectShape{
 	public SquareShape(int hw){
 		super(hw, hw, Color.red);
 		name = "square";
-		this.rotatedImages = new String[] {"square-up.jpg", "square-right.jpg", "square-down.jpg", "square-left.jpg"};
+		this.rotatedImages = new String[] {"square-up.png", "square-right.png", "square-down.png", "square-left.png"};
 	}
 
 	public static Shape randomize(){
