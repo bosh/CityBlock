@@ -51,7 +51,7 @@ public class Goal {
 				bonus = 20;
 				text = "Rectangle used! +" + bonus + " points";
 			} else {
-				text = "Use a rectangle that isn't also a square: Incomplete";
+				text = "Use a non-square rectangle: Incomplete";
 			}
 		} else if (name == "triangle") {
 			if (includesShape("triangle")) {
