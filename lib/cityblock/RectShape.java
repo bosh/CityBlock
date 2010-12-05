@@ -6,10 +6,10 @@ import java.util.*;
 
 public class RectShape extends cityblock.Shape{
 	public static Image[] rotatedImages = new Image[] {
-		Platform.platform.getImage(Platform.platform.getBase(), "rectangle-up.png"),
-		Platform.platform.getImage(Platform.platform.getBase(), "rectangle-right.png"),
-		Platform.platform.getImage(Platform.platform.getBase(), "rectangle-down.png"),
-		Platform.platform.getImage(Platform.platform.getBase(), "rectangle-left.png")
+		Platform.platform.getImage(Platform.platform.getBase(), "shapes/rectangle-up.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "shapes/rectangle-right.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "shapes/rectangle-down.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "shapes/rectangle-left.png")
 	};
 
 	public RectShape(int w, int h, Color color){

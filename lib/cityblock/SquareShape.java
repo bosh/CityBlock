@@ -7,10 +7,10 @@ import java.util.*;
 
 public class SquareShape extends cityblock.RectShape{
 	public static Image[] rotatedImages = new Image[] {
-		Platform.platform.getImage(Platform.platform.getBase(), "square-up.png"),
-		Platform.platform.getImage(Platform.platform.getBase(), "square-right.png"),
-		Platform.platform.getImage(Platform.platform.getBase(), "square-down.png"),
-		Platform.platform.getImage(Platform.platform.getBase(), "square-left.png")
+		Platform.platform.getImage(Platform.platform.getBase(), "shapes/square-up.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "shapes/square-right.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "shapes/square-down.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "shapes/square-left.png")
 	};
 
 	public SquareShape(int hw){
