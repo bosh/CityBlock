@@ -133,7 +133,7 @@ public class Shape extends Thing implements ImageObserver{
 	public void update(Graphics g) {
 		super.update(g);
 		Image img = getRotatedImage();
-		g.drawImage(img, (int) getX() - width/2, (int) getY() - height/2, width, height, this);
+		g.drawImage(img, (int) getX() - width/2, (int) getY() - height/2, width+1, height+1, this);
 	}
 
 	public Image getRotatedImage(){
