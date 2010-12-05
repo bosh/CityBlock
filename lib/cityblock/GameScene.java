@@ -12,8 +12,12 @@ public class GameScene implements IScene{
 	LevelSpec[] _levelSpecs;
 	int current = 0;
 	MenuThing mBack;
+	ImageThing mBackground;
+	ImageThing mStaging;
 
 	public GameScene(){
+		mBackground = new ImageThing("staging.png", 800, 600);
+		mStaging = new ImageThing("city1.png", 800, 600);
 		_controller = new LevelController();
 		mBack = new MenuThing(75, 35, 100, 50, "Back");
 	}
@@ -21,19 +25,8 @@ public class GameScene implements IScene{
 	public void setup(){
 		int bWidth = Platform.platform.getWidth();
 		int bHeight = Platform.platform.getHeight();
-
-		Platform.platform.playArea = new StaticRect(0, 0, (2*bWidth)/3, bHeight);
-		StaticRect playArea = Platform.platform.playArea;
-		playArea.setColor(Color.white);
-		playArea.setLineColor(Color.white);
-		Platform.platform.addThing(playArea);
-
-		Platform.platform.stagingArea = new StaticRect(bWidth - bWidth/3, 0, bWidth/3, bHeight);
-		StaticRect stagingArea = Platform.platform.stagingArea;
-		stagingArea.setColor(new Color(240,255,240));
-		stagingArea.setLineColor(Color.darkGray);
-		Platform.platform.addThing(stagingArea);
-		
+		Platform.platform.addThing(mBackground);
+		Platform.platform.addThing(mStaging);
 
 		Platform.platform.addThing(mBack);
 
@@ -60,6 +53,12 @@ public class GameScene implements IScene{
 	}
 
 	public void finish(){
+		if(_currentLevel != null){
+			_currentLevel.destroy();
+		}
+		current = 0;
+		Platform.platform.removeThing(mBackground);
+		Platform.platform.removeThing(mStaging);
 	}
 
 	public void update(){

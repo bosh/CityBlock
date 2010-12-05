@@ -18,8 +18,6 @@ public class Platform extends BufferedApplet {
    Color bgColor = Color.white;
    Thing selectedThing = null;
    ArrayList things = new ArrayList();
-   public StaticRect stagingArea;
-   public StaticRect playArea;
    public static Platform platform;
 
    // GET THE iTH THING IN THIS PLATFORM

@@ -44,7 +44,6 @@ public class MenuScene implements IScene{
 
 	public void updateOverlay(Graphics g){
 		g.setColor(Color.white);
-		g.drawString(title, 0, 110);
 		for(int i = 0; i < mButtons.size(); i++){
 			MenuThing m = (MenuThing)mButtons.get(i);
 			m.updateOverlay(g);
@@ -77,12 +76,13 @@ public class MenuScene implements IScene{
 //private
 
 	private void initializeBackground(){
-		mBackground = new ImageThing("menubackground.jpeg", Platform.platform.getWidth(), Platform.platform.getHeight());
+		mBackground = new ImageThing("menubackground.png", Platform.platform.getWidth(), Platform.platform.getHeight());
 		Platform.platform.addThing(mBackground);
 	}
 
 	private void initializeButtons(){
-		MenuThing start = new MenuThing(Platform.platform.getWidth() / 2.0, 300, "Start");
+		Image m = Platform.platform.getImage(Platform.platform.getBase(), "playbutton.png");
+		MenuThing start = new MenuThing(Platform.platform.getWidth() / 2.0, 300, 200, 100, m);
 		Platform.platform.addThing(start);
 		mButtons.add(start);
 		mStart = start;

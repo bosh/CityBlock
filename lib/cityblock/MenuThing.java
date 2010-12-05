@@ -37,6 +37,11 @@ public class MenuThing extends StaticRect implements ImageObserver{
 		this.mImage = image;
 		this.mPolygon = false;
 	}
+	public MenuThing(double centerX, double centerY, double w, double h, Image image){
+		this(centerX, centerY, w, h);
+		this.mImage = image;
+		this.mPolygon = false;
+	}
 
 	public void setText(String t){
 		mText = t;
