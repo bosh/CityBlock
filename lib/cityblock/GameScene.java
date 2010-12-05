@@ -12,8 +12,8 @@ public class GameScene implements IScene{
 	LevelSpec[] _levelSpecs;
 	int current = 0;
 
-	public GameScene(IScene daddy){
-		mDaddy = daddy;
+	public GameScene(){
+		_controller = new LevelController();
 	}
 
 	public void setup(){
@@ -32,19 +32,23 @@ public class GameScene implements IScene{
 		stagingArea.setLineColor(Color.darkGray);
 		Platform.platform.addThing(stagingArea);
 
-		//ths is setting up the first level, but hacked at the moment for testing
-		_controller = new LevelController();
+
 		//_currentLevel = _controller.getLevel(1);
-		nextLevel();
+		if(_currentLevel == null) nextLevel();
+		_currentLevel.start(Platform.platform);
 	}
 
 	public void nextLevel(){
+		loadLevel(current);
+	}
+	
+	public void loadLevel(int num){
+		System.out.println("GameScene, Loading level: " + num);
 		if(_currentLevel != null){
 			_currentLevel.destroy();
 		}
-		_currentLevel = _controller.getLevel(current);
-		current++;
-		_currentLevel.start(Platform.platform);
+		_currentLevel = _controller.getLevel(num);
+		current = num + 1;
 	}
 
 	public void addChild(IScene child){
@@ -59,6 +63,7 @@ public class GameScene implements IScene{
 			_currentLevel.update();
 		} else {
 			nextLevel();
+			_currentLevel.start(Platform.platform);
 		}
 		SoundController.active.housekeeping();
 	}

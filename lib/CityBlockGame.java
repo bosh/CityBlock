@@ -1,6 +1,7 @@
 import game.*;
 import java.awt.*;
 import cityblock.*;
+import java.util.*;
 public class CityBlockGame extends Platform {
 	
 	SceneManager mManager;
@@ -10,8 +11,20 @@ public class CityBlockGame extends Platform {
 		Platform.platform = this;
 		//this stuff is just setting up the staging area on the right side of the screen.
 		IScene menu = new MenuScene();
-		IScene game = new GameScene(menu);
-		menu.addChild(game);
+		GameScene game = new GameScene();
+	
+		try{
+			IScene world1 = new SelectorScene("world1", "world/world1.spec", game);
+		
+			ArrayList worlds = new ArrayList();
+			worlds.add(world1);
+		
+			SelectorScene worldSelect = new SelectorScene("world_selector", "world/world_select.spec", worlds);
+			menu.addChild(worldSelect);
+			
+		}catch(Exception e){
+			System.out.println(e);
+		}
 		mManager = new SceneManager(menu);
 	}
 	

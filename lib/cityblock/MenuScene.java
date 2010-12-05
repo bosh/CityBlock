@@ -58,6 +58,7 @@ public class MenuScene implements IScene{
 	}
 
 	public IScene getChild(){
+		mStart.unClick();
 		return mChild;
 	}
 
