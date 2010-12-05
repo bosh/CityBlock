@@ -10,6 +10,7 @@ public class GameScene implements IScene{
 	boolean _showMenu;
 	LevelController _controller;
 	LevelSpec[] _levelSpecs;
+	int _lastLevelCompleted = -1;
 	int current = 0;
 	MenuThing mBack;
 	ImageThing mBackground;
@@ -49,6 +50,10 @@ public class GameScene implements IScene{
 		_currentLevel = _controller.getLevel(num);
 		current = num + 1;
 	}
+	
+	public int firstLockedLevel(){
+		return _lastLevelCompleted + 2; //level 0 is never locked.
+	}
 
 	public void addChild(IScene child){
 		mChild = child;
@@ -67,6 +72,7 @@ public class GameScene implements IScene{
 		if(_currentLevel != null && !_currentLevel.completed) {
 			_currentLevel.update();
 		} else {
+			_lastLevelCompleted++;
 			nextLevel();
 			_currentLevel.start(Platform.platform);
 		}

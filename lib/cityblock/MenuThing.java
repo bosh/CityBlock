@@ -10,7 +10,18 @@ public class MenuThing extends StaticRect implements ImageObserver{
 	boolean mClicked = false;
 	String mText;
 	Image mImage;
+	Image mPrimary;
+	public Image alternateImage;
 	double mWidth, mHeight, mTopX, mTopY;
+	public boolean allowClicks = true;
+	public int number;
+
+	public void usePrimaryImage(){
+		mImage = mPrimary;
+	}
+	public void useAlternateImage(){
+		mImage = alternateImage;
+	}
 
 	private MenuThing(double centerX, double centerY, double width, double height){
 		super(centerX - width/2.0, centerY - height/2.0, width, height);
@@ -34,12 +45,12 @@ public class MenuThing extends StaticRect implements ImageObserver{
 	
 	public MenuThing(double centerX, double centerY, Image image){
 		this(centerX, centerY, 150, 150);
-		this.mImage = image;
+		this.mImage = this.mPrimary = image;
 		this.mPolygon = false;
 	}
 	public MenuThing(double centerX, double centerY, double w, double h, Image image){
 		this(centerX, centerY, w, h);
-		this.mImage = image;
+		this.mImage = this.mPrimary = image;
 		this.mPolygon = false;
 	}
 
@@ -62,7 +73,7 @@ public class MenuThing extends StaticRect implements ImageObserver{
 	}
 
 	public boolean mouseDown(int x, int y){
-		mClicked = true;
+		if(allowClicks) mClicked = true;
 		return super.mouseDown(x, y);
 	}
 

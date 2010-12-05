@@ -19,7 +19,9 @@ public class LevelController {
 
 	public Level getLevel(int i){
 		if(i >= _levels.length){ return null; }
-		return generate(_levels[i]);
+		Level l = generate(_levels[i]);
+		l.levelNumber = i;
+		return l;
 	}
 
 	private Shape getShape(int i){

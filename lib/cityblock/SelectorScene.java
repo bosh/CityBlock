@@ -13,8 +13,9 @@ public class SelectorScene implements IScene{
 	boolean moreSelectors = false;
 
 	ArrayList mSelectors;
-	GameScene mWorld;
+	GameScene mWorld = null;
 	ImageThing mBackground;
+	Image lockImage;
 	HashMap mButtons;
 	IScene mDaddy;
 	MenuThing mBack;
@@ -25,7 +26,7 @@ public class SelectorScene implements IScene{
 		this.mBack = new MenuThing(725, 560, 100, 50, "Back");
 		this.mSpecFile = spec;
 		mButtons = new HashMap();
-		
+		lockImage = Platform.platform.getImage(Platform.platform.getBase(), "lock.png");
 		
     URL url = new URL(Platform.platform.getBase(), mSpecFile);
 		loadResources(url);
@@ -49,9 +50,12 @@ public class SelectorScene implements IScene{
 			Image mg = Platform.platform.getImage(Platform.platform.getBase(), tokens[1]);
 			double x = Double.valueOf(tokens[2]).doubleValue();
 			double y = Double.valueOf(tokens[3]).doubleValue();
-			MenuThing m = new MenuThing(x, y, mg);
-			mButtons.put(tokens[0], m);
 			
+			MenuThing m = new MenuThing(x, y, mg);
+			m.alternateImage = lockImage;
+			m.number = i - 1;
+			mButtons.put(tokens[0], m);
+			i++;
 		}		
 	}
 	
@@ -79,6 +83,24 @@ public class SelectorScene implements IScene{
 		for(int i = 0; i < mButtons.size(); i++){
 			MenuThing m = (MenuThing)buttons[i];
 			p.addThing(m);
+			
+			
+			
+			if(mWorld != null){
+				System.out.println("i vs firstLockedLevel: " + i + " " + mWorld.firstLockedLevel());
+				if(m.number >= mWorld.firstLockedLevel()) {
+					m.useAlternateImage();
+					m.allowClicks = false;
+					System.out.println("disabling clicks");
+				} else{
+					m.usePrimaryImage();
+					m.allowClicks = true;
+				}
+			}	
+			else if (m.number > 0){
+				m.useAlternateImage();
+				m.allowClicks = false;
+			}
 		}
 		
 	}
@@ -103,7 +125,8 @@ public class SelectorScene implements IScene{
 		Object[] keys = mButtons.keySet().toArray();
 		for(int i = 0; i < mButtons.size(); i++){
 			MenuThing button = (MenuThing) mButtons.get(keys[i]);
-			if(button.clicked()) return (String)keys[i];
+			if(button.clicked()) {
+				return (String)keys[i];}
 		}
 		return null;
 	}
@@ -123,7 +146,8 @@ public class SelectorScene implements IScene{
 		}		
 	}
 	public IScene getChild(){
-		String level = getDestination();		
+		String level = getDestination();
+		System.out.println("level text = " + level);
 		System.out.println("level to load is: " + level);
 		if(level == null) return null; //take that!
 		if(!moreSelectors) {

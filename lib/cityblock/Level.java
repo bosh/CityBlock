@@ -19,6 +19,8 @@ public class Level {
 	public long startTime;
 	public boolean frozen = false;
 	public int score;
+	public boolean locked = false;
+	public int levelNumber = -1;
 	SoundController sounds = SoundController.active;
 
 	int action = 0;
@@ -185,6 +187,7 @@ public class Level {
 		//Todo
 		frozen = true;
 	}
+
 
 	String total = "";
 	int notePlayed = 0;
