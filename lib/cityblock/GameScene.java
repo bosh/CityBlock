@@ -11,9 +11,11 @@ public class GameScene implements IScene{
 	LevelController _controller;
 	LevelSpec[] _levelSpecs;
 	int current = 0;
+	MenuThing mBack;
 
 	public GameScene(){
 		_controller = new LevelController();
+		mBack = new MenuThing(75, 35, 100, 50, "Back");
 	}
 
 	public void setup(){
@@ -31,7 +33,9 @@ public class GameScene implements IScene{
 		stagingArea.setColor(new Color(240,255,240));
 		stagingArea.setLineColor(Color.darkGray);
 		Platform.platform.addThing(stagingArea);
+		
 
+		Platform.platform.addThing(mBack);
 
 		//_currentLevel = _controller.getLevel(1);
 		if(_currentLevel == null) nextLevel();
@@ -69,6 +73,7 @@ public class GameScene implements IScene{
 	}
 
 	public void updateOverlay(Graphics g){
+		mBack.updateOverlay(g);
 		_currentLevel.renderOverlay(g);
 	}
 
@@ -80,11 +85,19 @@ public class GameScene implements IScene{
 		return null;
 	}
 
+	public void addParent(IScene p){
+		mDaddy = p;
+	}
+
 	public IScene getParent(){
 		return mDaddy;
 	}
 
 	public boolean done(){
+		if(mBack.clicked()){
+			mBack.unClick();
+			return true;
+		}
 		return false;
 	}
 }

@@ -61,13 +61,16 @@ public class MenuScene implements IScene{
 		mStart.unClick();
 		return mChild;
 	}
+	
+	public void addParent(IScene p){
+		mParent = p;
+	}
 
 	public IScene getParent(){
-		return mParent;
+		return null;
 	}
 
 	public boolean done(){
-		//some condition
 		return false;
 	}
 

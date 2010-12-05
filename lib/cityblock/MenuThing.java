@@ -21,12 +21,16 @@ public class MenuThing extends StaticRect implements ImageObserver{
 		this.setColor(Color.gray);
 		this.setLineColor(Color.gray);		
 	}
-
+	public MenuThing(double cX, double cY, double w, double h, String t){
+		this(cX, cY, w, h);
+		mText = t;
+	}
 
 	public MenuThing(double centerX, double centerY, String text){
-		this(centerX, centerY, 150, 70);
+		this(centerX, centerY, 150, 70, text);
 		mText = text;
 	}
+
 	
 	public MenuThing(double centerX, double centerY, Image image){
 		this(centerX, centerY, 150, 150);

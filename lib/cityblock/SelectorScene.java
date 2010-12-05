@@ -16,10 +16,13 @@ public class SelectorScene implements IScene{
 	GameScene mWorld;
 	ImageThing mBackground;
 	HashMap mButtons;
+	IScene mDaddy;
+	MenuThing mBack;
 
 
 	private SelectorScene(String name, String spec) throws Exception{
 		this.name = name;
+		this.mBack = new MenuThing(725, 560, 100, 50, "Back");
 		this.mSpecFile = spec;
 		mButtons = new HashMap();
 		
@@ -70,6 +73,8 @@ public class SelectorScene implements IScene{
 	public void setup(){
 		Platform p = Platform.platform;
 		p.addThing(mBackground);
+
+		p.addThing(mBack);
 		Object[] buttons = mButtons.values().toArray();
 		for(int i = 0; i < mButtons.size(); i++){
 			MenuThing m = (MenuThing)buttons[i];
@@ -90,6 +95,7 @@ public class SelectorScene implements IScene{
 		
 	}
 	public void updateOverlay(Graphics g){
+		mBack.updateOverlay(g);
 		
 	}
 	
@@ -108,18 +114,27 @@ public class SelectorScene implements IScene{
 		if(s != null) return true;
 		return false;
 	}
+	
+	private void unclickAll(){
+		Object[] buttons = mButtons.values().toArray();
+		for(int i = 0; i < buttons.length; i++){
+			MenuThing button = (MenuThing) buttons[i];
+			button.unClick();
+		}		
+	}
 	public IScene getChild(){
 		String level = getDestination();		
 		System.out.println("level to load is: " + level);
 		if(level == null) return null; //take that!
 		if(!moreSelectors) {
 			mWorld.loadLevel(Integer.valueOf(level).intValue());
+			unclickAll();
 			return mWorld;
 		}else{
 			for(int i = 0; i < mSelectors.size(); i++){
 				SelectorScene s = (SelectorScene)mSelectors.get(i);
 				if(s.name.equalsIgnoreCase(level)) {
-					System.out.println("FOUND " + level);
+					unclickAll();
 					return s;
 					}
 			}
@@ -127,10 +142,17 @@ public class SelectorScene implements IScene{
 		}
 		return null;
 	}
+	public void addParent(IScene p){
+		mDaddy = p;
+	}
 	public IScene getParent(){
-		return null;
+		return mDaddy;
 	}
 	public boolean done(){
+		if(mBack.clicked()){
+			mBack.unClick();
+			return true;
+		}
 		return false;
 	}
 	
