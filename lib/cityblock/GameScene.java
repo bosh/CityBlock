@@ -20,7 +20,7 @@ public class GameScene implements IScene{
 		mBackground = new ImageThing("staging.png", 800, 600);
 		mStaging = new ImageThing("city1.png", 800, 600);
 		_controller = new LevelController();
-		mBack = new MenuThing(75, 35, 100, 50, "Back");
+		mBack = new MenuThing(50, 30, 100, 50, Platform.platform.getImage(Platform.platform.getBase(), "BackButton.png") );
 	}
 
 	public void setup(){

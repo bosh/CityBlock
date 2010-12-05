@@ -44,7 +44,7 @@ public class MenuThing extends StaticRect implements ImageObserver{
 
 	
 	public MenuThing(double centerX, double centerY, Image image){
-		this(centerX, centerY, 150, 150);
+		this(centerX, centerY, 50, 50);
 		this.mImage = this.mPrimary = image;
 		this.mPolygon = false;
 	}
