@@ -7,10 +7,10 @@ import java.util.*;
 
 public class TriangleShape extends cityblock.Shape{
 	public static Image[] rotatedImages = new Image[] {
-		Platform.platform.getImage(Platform.platform.getBase(), "triangle-lower-left.png"),
-		Platform.platform.getImage(Platform.platform.getBase(), "triangle-upper-left.png"),
-		Platform.platform.getImage(Platform.platform.getBase(), "triangle-upper-right.png"),
-		Platform.platform.getImage(Platform.platform.getBase(), "triangle-lower-right.png")
+		Platform.platform.getImage(Platform.platform.getBase(), "shapes/triangle-lower-left.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "shapes/triangle-upper-left.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "shapes/triangle-upper-right.png"),
+		Platform.platform.getImage(Platform.platform.getBase(), "shapes/triangle-lower-right.png")
 	};
 
 	public TriangleShape(int w, int h){
