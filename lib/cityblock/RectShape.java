@@ -7,6 +7,7 @@ import java.util.*;
 public class RectShape extends cityblock.Shape{
 	public RectShape(int w, int h, String imgpath, Color color){
 		super(w, h, imgpath, color);
+		name = "rectangle";
 	}
 
 	public RectShape(int w, int h){

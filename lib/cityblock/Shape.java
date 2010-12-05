@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.image.*;
 
 public class Shape extends Thing implements ImageObserver{
+	public String name;
 	Level level;
 	public Image img;
 	public static int maxDimension = 5;

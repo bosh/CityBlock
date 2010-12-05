@@ -8,6 +8,7 @@ import java.util.*;
 public class SquareShape extends cityblock.RectShape{
 	public SquareShape(int hw){
 		super(hw, hw, "square.jpg", Color.red);
+		name = "square";
 	}
 
 	public static Shape randomize(){

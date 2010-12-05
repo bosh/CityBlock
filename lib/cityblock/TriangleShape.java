@@ -9,6 +9,7 @@ public class TriangleShape extends cityblock.Shape{
 	//simple at first, just makes right-angle triangles only
 	public TriangleShape(int w, int h){
 		super(w, h, "right-triangle-lower-left.png", Color.green);
+		name = "triangle";
 	}
 
 	public static Shape randomize(){

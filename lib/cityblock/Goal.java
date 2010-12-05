@@ -3,16 +3,54 @@ package cityblock;
 public class Goal {
 	public String name;
 	public String text;
-	public int score;
+	public Shape[] shapes;
+	public long time;
+	public int bonus;
 
 	public Goal(String name){
 		this.name = name;
-		text = "unevaluated TEMP";
-		score = -1;
+		text = "";
+		bonus = 0;
+	}
+
+	public boolean includesShape(String type){
+		for(int i = 0; i < shapes.length; i++){
+			if (shapes[i].name == type){ return true; }
+		}
+		return false;
 	}
 
 	public void evaluate(long timeTaken, Shape[] shapesUsed){
-		text = "evaluated TEMP";
-		score = 999;
+		this.shapes = shapesUsed;
+		this.time = timeTaken;
+		if (name == "minute"){
+			if (time < 1000 * 60){
+				bonus = 25;
+				text = "Wow, fast! +" + bonus + " points";
+			} else {
+				text = "You took " + (int)(time/1000) + " seconds.";
+			}
+		} else if (name == "square") {
+			if (includesShape("square")) {
+				bonus = 15;
+				text = "Square used! +" + bonus + " points";
+			} else {
+				text = "Use a square: Incomplete";
+			}
+		} else if (name == "rectangle") {
+			if (includesShape("rectangle")) {
+				bonus = 20;
+				text = "Rectangle used! +" + bonus + " points";
+			} else {
+				text = "Use a rectangle that isn't also a square: Incomplete";
+			}
+		} else if (name == "triangle") {
+			if (includesShape("triangle")) {
+				bonus = 25;
+				text = "Triangle used! +" + bonus + " points";
+			} else {
+				text = "Use a triangle: Incomplete";
+			}
+		}
 	}
 }

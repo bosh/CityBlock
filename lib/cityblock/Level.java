@@ -18,6 +18,7 @@ public class Level {
 	public boolean completed = false;
 	public long startTime;
 	public boolean frozen = false;
+	public int score;
 	SoundController sounds = SoundController.active;
 
 	int action = 0;
@@ -128,6 +129,7 @@ public class Level {
 				g.drawString(goalText[i], currX, currY);
 				currY += 25;
 			}
+			g.drawString("Score: " + score, currX, currY);
 		}
 		//renders tutorial text until its finished
 		//renders numbers next to the shapes
@@ -207,21 +209,22 @@ public class Level {
 				if (targetArea == getCurrentArea()){
 					screenText[2] = "Good Job! Level Complete";
 					if ( completedButton == null ) {
-						completedButton = new Button(300, 140, 70, 30, this, "Next", 2);
+						completedButton = new Button(450, 400, 70, 30, this, "Next", 2);
 						sounds.playNote(11);
 						platform.addThing(completedButton);
 					}
-					if ( frozen ){
+					if ( !frozen ){
+						score = 100;
 						long millisTaken = getElapsedMillis();
 						goalText = new String[goals.length];
-						int[] goalScores = new int[goals.length];
+						int[] goalBonuses = new int[goals.length];
 						for(int i = 0; i < goals.length; i++){
 							goals[i].evaluate(millisTaken, getShapesInPlay());
 							goalText[i] = goals[i].text;
-							goalScores[i] = goals[i].score;
+							score += goals[i].bonus;
 						}
+						freezeLevel();
 					}
-					freezeLevel();
 				} else {
 					if( screenText[2].equals("") ){  sounds.playNote(0); }
 					screenText[2] = "Not quite! Click reset to try again.";
