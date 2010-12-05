@@ -44,8 +44,8 @@ public class Level {
 		platform = p;
 		buildingBase = new StaticRect(p.getWidth()/3 - 150, p.getHeight() - 30, 300, 30 );
 		buildingBase.setColor(java.awt.Color.gray);
-		button = new Button(p.getWidth()*2/3 - 80, p.getHeight() - 35, 70, 30, this, "Submit", 0);
-		resetButton = new Button(10, p.getHeight() - 35, 70, 30, this, "Reset", 1);
+		button = new Button(p.getWidth()*2/3 - 62, p.getHeight() - 22, 120, 40, this, p.getImage(p.getBase(), "Submit.png"), 0);
+		resetButton = new Button(62, p.getHeight() - 22, 120, 40, this, p.getImage(p.getBase(), "ResetButton.png"), 1);
 		p.addThing(resetButton);
 		p.addThing(button);
 		p.addThing(buildingBase);
@@ -107,7 +107,10 @@ public class Level {
 	public void renderOverlay(java.awt.Graphics g){
 		g.setColor(new Color(85, 85, 85));
 		String txt = "Target Area: " + targetArea;
+		Color t = g.getColor();
+		g.setColor(Color.white);
 		g.drawString(txt, platform.getWidth() - platform.stringWidth(txt, g) - 20 , platform.getHeight() - 20);
+		g.setColor(t);
 		//1. Render the overlay for each object
 		//2. Display the target area
 		//3. Display the level number
@@ -210,7 +213,7 @@ public class Level {
 				if (targetArea == getCurrentArea()){
 					screenText[2] = "Good Job! Level Complete";
 					if ( completedButton == null ) {
-						completedButton = new Button(450, 400, 70, 30, this, "Next", 2);
+						completedButton = new Button(400, 375, 300, 50, this, platform.getImage(platform.getBase(), "NextLevel.png"), 2);
 						sounds.playNote(11);
 						platform.addThing(completedButton);
 					}
