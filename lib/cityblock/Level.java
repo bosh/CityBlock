@@ -70,7 +70,10 @@ public class Level {
 	public void reset(){
 		resetShapes(platform);
 		doEndLevel = false;
+		frozen = false;
+		score = 0;
 		screenText = new String[]{"", "", ""};
+		goalText = null;
 		total = "";
 		action = 0;
 		nextAction = 0;
@@ -181,11 +184,6 @@ public class Level {
 		}
 	}
 
-	public void freezeLevel(){
-		//Todo
-		frozen = true;
-	}
-
 	String total = "";
 	int notePlayed = 0;
 	private void renderEndLevel(){
@@ -214,7 +212,7 @@ public class Level {
 						platform.addThing(completedButton);
 					}
 					if ( !frozen ){
-						score = 100;
+						score = 0;
 						long millisTaken = getElapsedMillis();
 						goalText = new String[goals.length];
 						int[] goalBonuses = new int[goals.length];
@@ -223,7 +221,7 @@ public class Level {
 							goalText[i] = goals[i].text;
 							score += goals[i].bonus;
 						}
-						freezeLevel();
+						frozen = true;
 					}
 				} else {
 					if( screenText[2].equals("") ){  sounds.playNote(0); }

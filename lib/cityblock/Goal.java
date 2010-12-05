@@ -30,6 +30,15 @@ public class Goal {
 			} else {
 				text = "You took " + (int)(time/1000) + " seconds.";
 			}
+		} else if (name == "easy") {
+			bonus = 75;
+			text = "Level complete! 75 points";
+		} else if (name == "normal") {
+			bonus = 100;
+			text = "Level complete! 100 points";
+		} else if (name == "hard") {
+			bonus = 125;
+			text = "Level complete! 125 points";
 		} else if (name == "square") {
 			if (includesShape("square")) {
 				bonus = 15;
