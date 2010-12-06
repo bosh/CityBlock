@@ -15,7 +15,11 @@ public class ImageThing extends Thing implements ImageObserver{
 	public ImageThing(String path, int width, int height, int x, int y){
 		this.mPolygon = false;
 		this.movable = false;
-		mImage = Platform.platform.getImage(Platform.platform.getBase(), path);
+		if (path != null){
+			mImage = Platform.platform.getImage(Platform.platform.getBase(), path);
+		} else {
+			mImage = null;
+		}
 		mWidth = width;
 		mHeight = height;		
 		mX = x;
@@ -23,7 +27,9 @@ public class ImageThing extends Thing implements ImageObserver{
 	}
 
 	public void update(Graphics g){
-		g.drawImage(mImage, mX, mY, mWidth, mHeight, this);
+		if (mImage != null){
+			g.drawImage(mImage, mX, mY, mWidth, mHeight, this);
+		}
 		super.update(g);
 	}
 

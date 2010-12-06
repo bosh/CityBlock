@@ -42,7 +42,7 @@ public class Level {
 
 	public void start(Platform p){
 		platform = p;
-		buildingBase = new StaticRect(p.getWidth()/3 - 150, p.getHeight() - 30, 300, 30 );
+		buildingBase = new StaticRect("base.png", p.getWidth()/3 - 150, p.getHeight() - 40, 300, 30 );
 		buildingBase.setColor(java.awt.Color.gray);
 		button = new Button(p.getWidth()*2/3 - 62, p.getHeight() - 22, 120, 40, this, p.getImage(p.getBase(), "Submit.png"), 0);
 		resetButton = new Button(62, p.getHeight() - 22, 120, 40, this, p.getImage(p.getBase(), "ResetButton.png"), 1);
@@ -126,7 +126,7 @@ public class Level {
 		g.setFont(font);
 
 		int currX = 100;
-		int currY = 50;
+		int currY = 100;
 		for(int i = 0; i < screenText.length; i++){
 			g.drawString(screenText[i], currX, currY);
 			currY += 25;
@@ -213,7 +213,7 @@ public class Level {
 				if (targetArea == getCurrentArea()){
 					screenText[2] = "Good Job! Level Complete";
 					if ( completedButton == null ) {
-						completedButton = new Button(400, 375, 300, 50, this, platform.getImage(platform.getBase(), "NextLevel.png"), 2);
+						completedButton = new Button(400, 30, 300, 50, this, platform.getImage(platform.getBase(), "NextLevel.png"), 2);
 						sounds.playNote(11);
 						platform.addThing(completedButton);
 					}
