@@ -4,7 +4,7 @@ import game.*;
 import java.awt.*;
 import java.awt.image.*;
 
-public class MenuThing extends StaticRect implements ImageObserver{
+public class MenuThing extends StaticRect{
 	Color mTextColor = Color.blue; // change me!!
 	int mFontSize = 40;
 	boolean mClicked = false;
@@ -24,7 +24,7 @@ public class MenuThing extends StaticRect implements ImageObserver{
 	}
 
 	private MenuThing(double centerX, double centerY, double width, double height){
-		super(centerX - width/2.0, centerY - height/2.0, width, height);
+		super(null, centerX - width/2.0, centerY - height/2.0, width, height);
 		mTopX = centerX - width/2.0;
 		mTopY = centerY - height/2.0;
 		mWidth = width;
@@ -32,6 +32,7 @@ public class MenuThing extends StaticRect implements ImageObserver{
 		this.setColor(Color.gray);
 		this.setLineColor(Color.gray);		
 	}
+
 	public MenuThing(double cX, double cY, double w, double h, String t){
 		this(cX, cY, w, h);
 		mText = t;
@@ -91,9 +92,5 @@ public class MenuThing extends StaticRect implements ImageObserver{
 
 	private int textY(Graphics g){
 		return (int)(this.getY()+ mFontSize/2.0 - 5);
-	}
-	
-	public boolean imageUpdate(Image img, int a, int b, int c, int d, int e){
-		return true;
 	}
 }
