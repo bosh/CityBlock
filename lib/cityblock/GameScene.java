@@ -70,7 +70,8 @@ public class GameScene implements IScene{
 		current = 0;
 		Platform.platform.removeThing(mBackground);
 		Platform.platform.removeThing(mStaging);
-		Platform.platform.addThing(tutorialButton);
+		Platform.platform.removeThing(tutorialButton);
+		Platform.platform.removeThing(mBack);
 	}
 
 	public void update(){

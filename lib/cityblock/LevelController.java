@@ -9,11 +9,15 @@ public class LevelController {
 	LevelSpec[] _levels;
 
 	public LevelController(){
-		_levels = new LevelSpec[4];
-		_levels[0] = new LevelSpec(3, true, true, false, new String[] {"easy", "square", "minute"});
-		_levels[1] = new LevelSpec(6, true, true, false, new String[] {"normal", "rectangle", "minute"});
-		_levels[2] = new LevelSpec(4, false, true, true, new String[] {"normal", "triangle", "minute"});
-		_levels[3] = new LevelSpec(6, true, true, true, new String[]  {"hard", "square", "triangle", "minute"});
+		_levels = new LevelSpec[8];
+		_levels[0] = new LevelSpec(3, true, false, false, new String[] {"easy", "minute"});
+		_levels[1] = new LevelSpec(6, true, false, false, new String[] {"normal","minute"});
+		_levels[2] = new LevelSpec(3, false, true, false, new String[] {"easy", "minute"});
+		_levels[3] = new LevelSpec(6, true, true, false, new String[]  {"normal", "rectangle", "minute"});
+		_levels[4] = new LevelSpec(3, false, false, true, new String[]  {"easy", "minute"});
+		_levels[5] = new LevelSpec(6, true, false, true, new String[]  {"normal", "triangle", "minute"});
+		_levels[6] = new LevelSpec(6, false, true, true, new String[]  {"normal", "triangle", "minute"});
+		_levels[7] = new LevelSpec(8, true, true, true, new String[]  {"hard", "square", "triangle", "minute"});
 		//read in levels file and create hash
 	}
 
