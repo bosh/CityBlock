@@ -213,7 +213,7 @@ public class Level {
 				if (targetArea == getCurrentArea()){
 					screenText[2] = "Good Job! Level Complete";
 					if ( completedButton == null ) {
-						completedButton = new Button(425, 30, 300, 50, this, platform.getImage(platform.getBase(), "NextLevel.png"), 2);
+						completedButton = new Button(400, 30, 300, 50, this, platform.getImage(platform.getBase(), "NextLevel.png"), 2);
 						sounds.playNote(11);
 						platform.addThing(completedButton);
 					}
