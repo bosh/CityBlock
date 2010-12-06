@@ -12,7 +12,6 @@ public class Level {
 	public int id;
 	public double lastTime = 0.0;
 	public String description;
-	public Tutorial tutorial;
 	public StaticRect buildingBase;
 	public Platform platform;
 	public boolean completed = false;
@@ -38,6 +37,7 @@ public class Level {
 		for(int i = 0; i < shapes.length; i++) {
 			shapes[i].setLevel(this);
 		}
+
 	}
 
 	public void start(Platform p){

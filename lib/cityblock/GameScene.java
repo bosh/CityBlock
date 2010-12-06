@@ -15,12 +15,16 @@ public class GameScene implements IScene{
 	MenuThing mBack;
 	ImageThing mBackground;
 	ImageThing mStaging;
+	MenuThing tutorialButton;
+	TutorialScreen tutorials;
 
 	public GameScene(){
 		mBackground = new ImageThing("staging.png", 800, 600);
 		mStaging = new ImageThing("city1.png", 800, 600);
 		_controller = new LevelController();
 		mBack = new MenuThing(50, 30, 100, 50, Platform.platform.getImage(Platform.platform.getBase(), "BackButton.png") );
+		tutorialButton = new MenuThing(782, 20, 20, 20, Platform.platform.getImage(Platform.platform.getBase(), "question.png") );
+		tutorials = new TutorialScreen();
 	}
 
 	public void setup(){
@@ -28,7 +32,7 @@ public class GameScene implements IScene{
 		int bHeight = Platform.platform.getHeight();
 		Platform.platform.addThing(mBackground);
 		Platform.platform.addThing(mStaging);
-
+		Platform.platform.addThing(tutorialButton);
 		Platform.platform.addThing(mBack);
 
 
@@ -66,9 +70,20 @@ public class GameScene implements IScene{
 		current = 0;
 		Platform.platform.removeThing(mBackground);
 		Platform.platform.removeThing(mStaging);
+		Platform.platform.addThing(tutorialButton);
 	}
 
 	public void update(){
+		SoundController.active.housekeeping();		
+		if(tutorialButton.clicked()){
+			tutorials.start();
+			tutorialButton.unClick();
+			return;
+		}
+		if(tutorials.active){
+			tutorials.update();
+			return;
+		}
 		if(_currentLevel != null && !_currentLevel.completed) {
 			_currentLevel.update();
 		} else {
@@ -76,12 +91,14 @@ public class GameScene implements IScene{
 			nextLevel();
 			_currentLevel.start(Platform.platform);
 		}
-		SoundController.active.housekeeping();
+
 	}
 
 	public void updateOverlay(Graphics g){
-		mBack.updateOverlay(g);
-		_currentLevel.renderOverlay(g);
+		if(!tutorials.active){
+			mBack.updateOverlay(g);
+			_currentLevel.renderOverlay(g);
+	}
 	}
 
 	public boolean childReady(){
