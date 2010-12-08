@@ -7,6 +7,7 @@ import cityblock.*;
 public class LevelController {
 	//private, dont make public!!
 	LevelSpec[] _levels;
+	Level[] _generated_levels;
 
 	public LevelController(){
 		_levels = new LevelSpec[8];
@@ -19,12 +20,19 @@ public class LevelController {
 		_levels[6] = new LevelSpec(6, false, true, true, new String[]  {"normal", "triangle", "minute"});
 		_levels[7] = new LevelSpec(8, true, true, true, new String[]  {"hard", "square", "triangle", "minute"});
 		//read in levels file and create hash
+		_generated_levels = new Level[_levels.length];
 	}
 
 	public Level getLevel(int i){
 		if(i >= _levels.length){ return null; }
-		Level l = generate(_levels[i]);
-		l.levelNumber = i;
+		Level l;
+		if (_generated_levels[i] == null) {
+			l = generate(_levels[i]);
+			l.levelNumber = i;
+			_generated_levels[i] = l;
+		} else {
+			l = _generated_levels[i];
+		}
 		return l;
 	}
 
@@ -40,13 +48,14 @@ public class LevelController {
 	public Level generate(LevelSpec spec){
 		Shape[] shapes = new Shape[spec.numShapes];
 		int shapesIndex = 0;
+		// Get one of each desired shape
 		for(int i = 0; i < spec.desiredShapes.length; i++){
 			if (spec.desiredShapes[i]){
 				shapes[shapesIndex] = this.getShape(i);
 				shapesIndex++;
 			}
-		}	// end getting of initial shapes
-			// now need to continue getting shapes until no more to get
+		}
+		// Fill in with other random shapes
 		Random r = new Random();
 		while(shapesIndex < spec.numShapes){
 			int sType = r.nextInt(3);

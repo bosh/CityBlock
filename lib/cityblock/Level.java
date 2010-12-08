@@ -105,6 +105,7 @@ public class Level {
 	}
 
 	public void renderOverlay(java.awt.Graphics g){
+		g.setFont(new Font("Helvetica", Font.BOLD, 26));
 		g.setColor(new Color(85, 85, 85));
 		String txt = "Target Area: " + targetArea;
 		Color t = g.getColor();
@@ -121,23 +122,23 @@ public class Level {
 		button.renderOverlay(g);
 		if(completedButton != null) completedButton.renderOverlay(g);
 		if(resetButton != null) resetButton.renderOverlay(g);
-		Font font = new Font("Helvetica", Font.BOLD, 26);
-		g.setColor(Color.darkGray);
-		g.setFont(font);
 
-		int currX = 100;
-		int currY = 100;
+		int writeX = 15;
+		int writeY = 75;
+		g.setColor(Color.darkGray);
+		g.setFont(new Font("Helvetica", Font.BOLD, 18));
 		for(int i = 0; i < screenText.length; i++){
-			g.drawString(screenText[i], currX, currY);
-			currY += 25;
+			g.drawString(screenText[i], writeX, writeY);
+			writeY += 21;
 		}
-		currY += 25;
 		if ( frozen && goalText != null ){
+			writeY += 7;
+			g.drawString("Score: " + score, writeX + 50, writeY);
+			writeY += 28;
 			for(int i = 0; i < goalText.length; i++){
-				g.drawString(goalText[i], currX, currY);
-				currY += 25;
+				g.drawString(goalText[i], writeX, writeY);
+				writeY += 21;
 			}
-			g.drawString("Score: " + score, currX, currY);
 		}
 		//renders tutorial text until its finished
 		//renders numbers next to the shapes
