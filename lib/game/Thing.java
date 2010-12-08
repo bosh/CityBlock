@@ -2,6 +2,7 @@ package game;
 
 // GENERIC THING
 import java.awt.*;
+import java.util.Random;
 
 public class Thing {
    public int width;
@@ -23,7 +24,7 @@ public class Thing {
    public int rotation = 0;
 
    Polygon polygon = null;
-   boolean needToUpdateShape = false;
+   public boolean needToUpdateShape = false;
    Platform platform;
       
    public void setPlatform(Platform platform) {
@@ -35,17 +36,17 @@ public class Thing {
    }
 
    public boolean isInStagingArea(){
-      double areaDivider = platform.getWidth() * 2.0 / 3.0;
+      double areaDivider = platform.getWidth() - 250;
       for(int i = 0; i < n; i++){
-         if (X[i] < areaDivider) { return false; }
+         if (X[i] - 0.5*width < areaDivider) { return false; }
       }
       return true;
    }
 
    public boolean isInPlayArea(){
-      double areaDivider = platform.getWidth() * 2.0 / 3.0;
+      double areaDivider = platform.getWidth() - 250;
       for(int i = 0; i < n; i++){
-         if (X[i] > areaDivider) { return false; }
+         if (X[i] + 0.5*width > areaDivider) { return false; }
       }
       return true;
    }
@@ -74,6 +75,15 @@ public class Thing {
          minimumDistance[1] = bottom;
       }
       return minimumDistance;
+   }
+
+   public void randomizeRotation() {
+      double chance = new Random().nextDouble();
+      if (chance < 0.17) { // 90 degrees CW 1/6 the time
+         rotate();
+      } else if (chance < 0.34) { // 90 degrees CCW 1/6 the time
+         rotate(); rotate(); rotate();
+      } // else just dont rotate (2/3 the time)
    }
 
    public void rotate() { //90degrees clockwise

@@ -13,9 +13,14 @@ public class Shape extends Thing implements ImageObserver{
 	public static int dimMultiplier = 20;
 	protected Color defaultColor = Color.gray;
 	
-	public void reset(){
+	public void reset(){ // TODO: mirror highlight
 		setColor(defaultColor);
 		setLineColor(defaultColor);
+	}
+
+	public void highlight(){ // TODO: needs to be replaced with an asset switcher instead of a darkener
+		setColor(Color.black);
+		setLineColor(Color.black);
 	}
 
 	public double getArea(){return this.getGameHeight()*this.getGameWidth();}
@@ -29,6 +34,7 @@ public class Shape extends Thing implements ImageObserver{
 		this.height = h;
 		this.defaultColor = color;
 		this.movable = true;
+		randomizeRotation();
 	}
 
 	public void setLevel(Level level){
@@ -37,11 +43,6 @@ public class Shape extends Thing implements ImageObserver{
 
 	public Level getLevel() {
 		return this.level;
-	}
-
-	public void highlight(){
-		setColor(Color.black);
-		setLineColor(Color.black);
 	}
 
 	public boolean mouseUp(int x, int y) {
@@ -87,9 +88,38 @@ public class Shape extends Thing implements ImageObserver{
 		return snapped;
 	}
 
-	public void returnToStaging(){ //TODO make this target a specific place for objects to come back
-		setX(getPlatform().getWidth() - 150);
-		setY(getPlatform().getHeight() - 150);
+	public void returnToStaging(){ //TODO, still doesnt really work with returning things back nicely
+		int padding = 10;
+		int left = getPlatform().getWidth() - 215;
+		int top = 30;
+		int gridX = left + (int)(width*0.5);
+		int gridY = top + (int)(height*0.5);
+		setX(gridX);
+		setY(gridY);
+		Shape[] stagingPieces = getLevel().getShapesInStaging();
+		boolean again = true;
+		while (again) {
+			again = false;
+			for(int i = 0; i < stagingPieces.length; i++) {
+				if( getPlatform().colliding(this, stagingPieces[i]) ) {
+					gridX += (stagingPieces[i].width + padding);
+					setX(gridX);
+					needToUpdateShape = true;
+					updateShape();
+					again = true;
+				}
+				if (gridX + width*0.5 + padding > getPlatform().getWidth()) {
+					gridX = left + (int)(width*0.5);
+					gridY += (stagingPieces[i].height + padding);
+					setX(gridX);
+					setY(gridY);
+					needToUpdateShape = true;
+					updateShape();
+					again = true;
+				}
+			}
+			
+		}
 	}
 
 	public Thing[] findClosest(){

@@ -18,6 +18,7 @@ public class Level {
 	public long startTime;
 	public boolean frozen = false;
 	public int score;
+	public int bestscore;
 	public boolean locked = false;
 	public int levelNumber = -1;
 	SoundController sounds = SoundController.active;
@@ -50,15 +51,17 @@ public class Level {
 		p.addThing(button);
 		p.addThing(buildingBase);
 		startTime = System.currentTimeMillis();
+		score = 0;
 
 		for(int i = 0; i < this.shapes.length; i++){
 			shapes[i].setup(0, 0);
 			p.addThing(shapes[i]);
 		}
-		resetShapes(p);
+
+		reset();
 	}
 
-	public void resetShapes(Platform p){
+	public void resetShapes(Platform p){ // TODO: tie this into the smart placement system for returning to staging when that's ready
 		int offset = 20;
 		for(int i = 0; i < this.shapes.length; i++){
 			Shape s = shapes[i];
@@ -67,6 +70,10 @@ public class Level {
 			s.setY(offset + s.height/2);
 			s.reset();
 		}
+		// From the above TODO. This almost works. that means like 50% of the time in manual testing, but not when loading a level...
+		// for(int i = 0; i < shapes.length; i++) {
+		// 	shapes[i].returnToStaging();
+		// }
 	}
 
 	public void reset(){
@@ -87,6 +94,9 @@ public class Level {
 	public void destroy(){
 		for(int i = 0; i < shapes.length; i++){
 			platform.removeThing(shapes[i]);
+		}
+		if (score > bestscore) {
+			bestscore = score;
 		}
 		platform.removeThing(completedButton);
 		platform.removeThing(button);
@@ -160,6 +170,22 @@ public class Level {
 		return results;
 	}
 
+	public Shape[] getShapesInStaging(){
+		Shape[] inStaging = new Shape[100];
+		int next = 0;
+		for(int i = 0; i < shapes.length; i++){
+			if(shapes[i].isInStagingArea()){
+				inStaging[next] = shapes[i];
+				next++;
+			}
+		}
+		Shape[] results = new Shape[next];
+		for(int i = 0; i < results.length; i++){
+			results[i] = inStaging[i];
+		}
+		return results;
+	}
+
 	public double getCurrentArea(){
 		double result = 0.0;
 		Shape[] inPlay = getShapesInPlay();
@@ -174,7 +200,6 @@ public class Level {
 	}
 
 	long nextAction = 0;
-
 	public void submit(int type){
 		switch(type){
 			case 0:
@@ -190,13 +215,11 @@ public class Level {
 		}
 	}
 
-
 	String total = "";
 	int notePlayed = 0;
 	private void renderEndLevel(){
 		Date current = new Date();
 		if(nextAction == 0) nextAction = current.getTime()+750;//milliseconds
-
 		if(current.getTime() > nextAction){
 			nextAction = current.getTime()+750;
 			while(action < shapes.length && !shapes[action].isInPlayArea()) action++;

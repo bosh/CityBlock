@@ -35,17 +35,15 @@ public class GameScene implements IScene{
 		Platform.platform.addThing(tutorialButton);
 		Platform.platform.addThing(mBack);
 
-
 		//_currentLevel = _controller.getLevel(1);
 		if(_currentLevel == null) nextLevel();
 		_currentLevel.start(Platform.platform);
-
 	}
 
 	public void nextLevel(){
 		loadLevel(current);
 	}
-	
+
 	public void loadLevel(int num){
 		System.out.println("GameScene, Loading level: " + num);
 		if(_currentLevel != null){
@@ -54,7 +52,7 @@ public class GameScene implements IScene{
 		_currentLevel = _controller.getLevel(num);
 		current = num + 1;
 	}
-	
+
 	public int firstLockedLevel(){
 		return _lastLevelCompleted + 2; //level 0 is never locked.
 	}
@@ -87,19 +85,18 @@ public class GameScene implements IScene{
 		}
 		if(_currentLevel != null && !_currentLevel.completed) {
 			_currentLevel.update();
-		} else {
+		} else { // TODO: only increment this if the level number of the last completed is high than it previously was
 			_lastLevelCompleted++;
 			nextLevel();
 			_currentLevel.start(Platform.platform);
 		}
-
 	}
 
 	public void updateOverlay(Graphics g){
 		if(!tutorials.active){
 			mBack.updateOverlay(g);
 			_currentLevel.renderOverlay(g);
-	}
+		}
 	}
 
 	public boolean childReady(){
