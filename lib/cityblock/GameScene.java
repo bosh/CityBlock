@@ -15,6 +15,8 @@ public class GameScene implements IScene{
 	MenuThing mBack;
 	ImageThing mBackground;
 	ImageThing mStaging;
+	MenuThing mEndWorld;
+	boolean onEndScreen;
 	MenuThing tutorialButton;
 	TutorialScreen tutorials;
 
@@ -22,6 +24,7 @@ public class GameScene implements IScene{
 		mBackground = new ImageThing("staging.png", 800, 600);
 		mStaging = new ImageThing("city1.png", 800, 600);
 		_controller = new LevelController();
+		mEndWorld = new MenuThing(400, 300, 800, 600, Platform.platform.getImage(Platform.platform.getBase(), "end_world.png"));
 		mBack = new MenuThing(50, 30, 100, 50, Platform.platform.getImage(Platform.platform.getBase(), "BackButton.png") );
 		tutorialButton = new MenuThing(782, 20, 20, 20, Platform.platform.getImage(Platform.platform.getBase(), "question.png") );
 		tutorials = new TutorialScreen();
@@ -70,6 +73,7 @@ public class GameScene implements IScene{
 		Platform.platform.removeThing(mStaging);
 		Platform.platform.removeThing(tutorialButton);
 		Platform.platform.removeThing(mBack);
+		Platform.platform.removeThing(mEndWorld);
 	}
 
 	public void update(){
@@ -87,8 +91,16 @@ public class GameScene implements IScene{
 			_currentLevel.update();
 		} else { // TODO: only increment this if the level number of the last completed is high than it previously was
 			_lastLevelCompleted++;
-			nextLevel();
-			_currentLevel.start(Platform.platform);
+			if(_lastLevelCompleted == _controller.getNumberOfLevels() - 1){
+				if(!onEndScreen){
+					Platform.platform.addThing(mEndWorld);
+					onEndScreen = true;
+				}
+				
+			}else{
+				nextLevel();
+				_currentLevel.start(Platform.platform);
+			}
 		}
 	}
 
@@ -116,8 +128,9 @@ public class GameScene implements IScene{
 	}
 
 	public boolean done(){
-		if(mBack.clicked()){
+		if(mBack.clicked() || mEndWorld.clicked()){
 			mBack.unClick();
+			mEndWorld.unClick();
 			return true;
 		}
 		return false;
