@@ -92,29 +92,33 @@ public class Shape extends Thing implements ImageObserver{
 		return snapped;
 	}
 
-	public void returnToStaging(){ //TODO, still doesnt really work with returning things back nicely
-		int padding = 10;
+	public void returnToStaging(){
+		int padding = 20;
 		int left = getPlatform().getWidth() - 215;
 		int top = 30;
 		int gridX = left + (int)(width*0.5);
 		int gridY = top + (int)(height*0.5);
 		setX(gridX);
 		setY(gridY);
+		needToUpdateShape = true;
+		updateShape();
 		Shape[] stagingPieces = getLevel().getShapesInStaging();
 		boolean again = true;
-		while (again) {
+		int times = 0;
+		while (again && times <= stagingPieces.length) {
 			again = false;
-			for(int i = 0; i < stagingPieces.length; i++) {
+			times += 1;
+			for(int i = 0; i < stagingPieces.length && !again; i++) {
 				if( getPlatform().colliding(this, stagingPieces[i]) ) {
-					gridX += (stagingPieces[i].width + padding);
+					gridX = (int)(stagingPieces[i].x + 0.5*stagingPieces[i].width + 0.5*width + padding);
 					setX(gridX);
 					needToUpdateShape = true;
 					updateShape();
 					again = true;
 				}
-				if (gridX + width*0.5 + padding > getPlatform().getWidth()) {
+				if (!isInStagingArea()) {
 					gridX = left + (int)(width*0.5);
-					gridY += (stagingPieces[i].height + padding);
+					gridY = (int)(stagingPieces[i].y + 0.5*stagingPieces[i].height + 0.5*height + padding);
 					setX(gridX);
 					setY(gridY);
 					needToUpdateShape = true;

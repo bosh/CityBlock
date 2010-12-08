@@ -38,7 +38,10 @@ public class Thing {
    public boolean isInStagingArea(){
       double areaDivider = platform.getWidth() - 250;
       for(int i = 0; i < n; i++){
-         if (X[i] - 0.5*width < areaDivider) { return false; }
+         if (Y[i] < 5) { return false; } // Too high case
+         if (Y[i] > platform.getHeight() - 45) { return false; } // Too low case
+         if (X[i] < areaDivider - 5) { return false; } // Too far left case
+         if (X[i] > platform.getWidth() - 5) { return false; } // Too far right case
       }
       return true;
    }

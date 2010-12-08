@@ -70,10 +70,9 @@ public class Level {
 			s.setY(offset + s.height/2);
 			s.reset();
 		}
-		// From the above TODO. This almost works. that means like 50% of the time in manual testing, but not when loading a level...
-		// for(int i = 0; i < shapes.length; i++) {
-		// 	shapes[i].returnToStaging();
-		// }
+		for(int i = 0; i < shapes.length; i++) {
+			shapes[i].returnToStaging();
+		}
 	}
 
 	public void reset(){
