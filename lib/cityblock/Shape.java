@@ -34,7 +34,11 @@ public class Shape extends Thing implements ImageObserver{
 		this.height = h;
 		this.defaultColor = color;
 		this.movable = true;
-		randomizeRotation();
+		this.rotation = 0;
+	}
+
+	public Image getRotatedImage(){
+		return rotatedImages[(int)(rotation/90)];
 	}
 
 	public void setLevel(Level level){
@@ -167,10 +171,6 @@ public class Shape extends Thing implements ImageObserver{
 		super.update(g);
 		Image img = getRotatedImage();
 		g.drawImage(img, (int) getX() - width/2, (int) getY() - height/2, width+1, height+1, this);
-	}
-
-	public Image getRotatedImage(){
-		return rotatedImages[(int)(rotation/90)];
 	}
 
 	public boolean imageUpdate(Image img, int x, int y, int width, int height, int fudge){
