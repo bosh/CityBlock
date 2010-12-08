@@ -35,6 +35,10 @@ public class LevelController {
 		}
 		return l;
 	}
+	
+	public int getNumberOfLevels(){
+		return _levels.length;
+	}
 
 	private Shape getShape(int i){
 		switch(i){
