@@ -97,6 +97,7 @@ public class Level {
 		if (score > bestscore) {
 			bestscore = score;
 		}
+		completed = false;
 		platform.removeThing(completedButton);
 		platform.removeThing(button);
 		platform.removeThing(resetButton);

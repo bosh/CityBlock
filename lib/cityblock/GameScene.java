@@ -91,7 +91,7 @@ public class GameScene implements IScene{
 			_currentLevel.update();
 		} else { // TODO: only increment this if the level number of the last completed is high than it previously was
 			_lastLevelCompleted++;
-			if(_lastLevelCompleted == _controller.getNumberOfLevels() - 1){
+			if(_lastLevelCompleted >= _controller.getNumberOfLevels() - 1){
 				if(!onEndScreen){
 					Platform.platform.addThing(mEndWorld);
 					onEndScreen = true;
@@ -105,7 +105,7 @@ public class GameScene implements IScene{
 	}
 
 	public void updateOverlay(Graphics g){
-		if(!tutorials.active){
+		if(!tutorials.active && !onEndScreen){
 			mBack.updateOverlay(g);
 			_currentLevel.renderOverlay(g);
 		}
